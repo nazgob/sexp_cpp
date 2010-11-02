@@ -1,0 +1,9 @@
+*.swp
+*.swo
+*.o
+*.txt
+*.so
+.DS_Store
+html/
+test_sexp_cpp
+
