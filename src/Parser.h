@@ -24,6 +24,28 @@ namespace sexp_cpp
   {
   };
 
+  class OperatorFactory
+  {
+    public:
+      static pOp getOperator(const std::string& token)
+      {
+        pOp op;
+        if(token == "+")
+        {
+          op = pOp(new AddOperator());
+        }
+        else if(token == "-")
+        {
+          op = pOp(new SubOperator());
+        }
+        else
+        {
+          throw std::invalid_argument("unknown operator: " + token);
+        }
+        return  op;
+      }
+  };
+
   class Parser
   {
     public:
@@ -42,27 +64,22 @@ namespace sexp_cpp
         {
           std::string token;
 
-          token = tokens.front();
-          tokens.pop_front();
+          token = GetNextToken(tokens);
 
-          pOp op(new AddOperator());
+          pOp op = OperatorFactory::getOperator(token);
 
-          token = tokens.front();
-          tokens.pop_front();
-          
+          token = GetNextToken(tokens);
+
           pVar a(new VarExp("a"));
           context.Assign(a, boost::lexical_cast<int>(token));
-          
-          token = tokens.front();
-          tokens.pop_front();
-          
+
+          token = GetNextToken(tokens);
+
           pVar b(new VarExp("b"));
           context.Assign(b, boost::lexical_cast<int>(token));
 
-          SExp* sExp = new SExp(a, b, op);
+          pSExp sExp(new SExp(a, b, op));
           int result = sExp->Evaluate(context);
-
-          delete sExp; sExp = NULL;
           return result;
         }
         else if(token == ")")
@@ -73,6 +90,12 @@ namespace sexp_cpp
         {
           throw std::invalid_argument("TODO!");
         }
+      }
+      std::string GetNextToken(std::list<std::string>& tokens)
+      {
+        std::string token = tokens.front();
+        tokens.pop_front();
+        return token;
       }
   };
 
