@@ -20,7 +20,7 @@ namespace sexp_cpp
   {
   };
 
-  class Formater // TODO: this will format SExp to format (op lhs, rhs)
+  class Formater // TODO: this will convert SExp to format (op lhs, rhs)
   {
   };
 
@@ -51,7 +51,12 @@ namespace sexp_cpp
     public:
       static pVal getValueExp(const std::string& token)
       {
-          return pVal(new ValueExp(boost::lexical_cast<int>(token)));
+        return pVal(new ValueExp(boost::lexical_cast<int>(token)));
+      }
+
+      static pSExp getSExp(pExp lhs, pExp rhs, pOp op)
+      {
+        return pSExp(new SExp(lhs, rhs, op));
       }
   };
 
@@ -85,9 +90,9 @@ namespace sexp_cpp
 
           pVal rhs = ExpFactory::getValueExp(token);
 
-          pSExp sExp(new SExp(lhs, rhs, op));
-          int result = sExp->Evaluate(context);
-          return result;
+          pSExp sExp = ExpFactory::getSExp(lhs, rhs, op);
+
+          return sExp->Evaluate(context);
         }
         else if(token == ")")
         {
