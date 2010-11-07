@@ -6,8 +6,10 @@ _TST_OBJS = \
 						test_main.o \
 						ContextTest.o \
 						OperatorTest.o \
-						SExpTest.o
+						SExpTest.o \
+						ParserTest.o
 
+#CC = g++ -g
 CC = clang++ -g
 
 BIN_EXEC = sexp_cpp
