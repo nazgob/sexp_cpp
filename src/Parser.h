@@ -8,7 +8,7 @@
 #include <boost/lexical_cast.hpp>
 
 #include "../src/SExp.h"
-#include "../src/VarExp.h"
+#include "../src/ValueExp.h"
 #include "../src/Operator.h"
 #include "../src/Context.h"
 #include "../src/Utils.h"
@@ -70,15 +70,13 @@ namespace sexp_cpp
 
           token = GetNextToken(tokens);
 
-          pVar a(new VarExp("a"));
-          context.Assign(a, boost::lexical_cast<int>(token));
+          pVal x(new ValueExp(boost::lexical_cast<int>(token)));
 
           token = GetNextToken(tokens);
 
-          pVar b(new VarExp("b"));
-          context.Assign(b, boost::lexical_cast<int>(token));
+          pVal y(new ValueExp(boost::lexical_cast<int>(token)));
 
-          pSExp sExp(new SExp(a, b, op));
+          pSExp sExp(new SExp(x, y, op));
           int result = sExp->Evaluate(context);
           return result;
         }
