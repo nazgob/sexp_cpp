@@ -9,10 +9,5 @@ namespace sexp_cpp
     return context.Lookup(getVarName());
   }
 
-  const std::string& VarExp::getVarName() const
-  {
-    return mVarName;
-  }
-
 } // sexp_cpp
 

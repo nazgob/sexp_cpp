@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include "../src/SExp.h"
 #include "../src/VarExp.h"
+#include "../src/ValueExp.h"
 #include "../src/Operator.h"
 #include "../src/Context.h"
 #include "../src/Utils.h"
@@ -115,6 +116,18 @@ namespace
 		pExp two(new SExp(c, one, addOp));
 		pExp three(new SExp(d, two, addOp));
 		EXPECT_EQ(14, three->Evaluate(context));
+	}
+
+	TEST(SExpWithValuesTest, SimplestCorrectSExpNoVariables)
+	{
+		// (+ 4 5) = 9
+    Context context;
+
+		pOp op(new AddOperator());
+    pVal a(new ValueExp(4)); 
+    pVal b(new ValueExp(5)); 
+		pSExp sExp(new SExp(a, b, op));
+		EXPECT_EQ(9, sExp->Evaluate(context));
 	}
 
 } 
