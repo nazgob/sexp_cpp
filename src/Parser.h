@@ -46,6 +46,15 @@ namespace sexp_cpp
       }
   };
 
+  class ExpFactory
+  {
+    public:
+      static pVal getValueExp(const std::string& token)
+      {
+          return pVal(new ValueExp(boost::lexical_cast<int>(token)));
+      }
+  };
+
   class Parser
   {
     public:
@@ -70,13 +79,13 @@ namespace sexp_cpp
 
           token = GetNextToken(tokens);
 
-          pVal x(new ValueExp(boost::lexical_cast<int>(token)));
+          pVal lhs = ExpFactory::getValueExp(token);
 
           token = GetNextToken(tokens);
 
-          pVal y(new ValueExp(boost::lexical_cast<int>(token)));
+          pVal rhs = ExpFactory::getValueExp(token);
 
-          pSExp sExp(new SExp(x, y, op));
+          pSExp sExp(new SExp(lhs, rhs, op));
           int result = sExp->Evaluate(context);
           return result;
         }
