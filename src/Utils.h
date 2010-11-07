@@ -8,11 +8,13 @@ namespace sexp_cpp
   class Exp;
   class Operator;
   class VarExp;
+  class ValueExp;
   class SExp;
 
   typedef boost::shared_ptr<Exp> pExp;
   typedef boost::shared_ptr<Operator> pOp;
   typedef boost::shared_ptr<VarExp> pVar;
+  typedef boost::shared_ptr<ValueExp> pVal;
   typedef boost::shared_ptr<SExp> pSExp;
 } // sexp_cpp
 

@@ -16,7 +16,7 @@ namespace sexp_cpp
 
       virtual int Evaluate(Context& context) const;
 
-      const std::string& getVarName() const;
+      const std::string& getVarName() const {return mVarName;}
 
 			virtual std::string WhoAmI() const {return "VarExp";}
     protected:
