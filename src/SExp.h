@@ -6,6 +6,9 @@
 #include "Context.h"
 #include "Utils.h"
 
+#include <cassert>
+#include <string>
+
 namespace sexp_cpp
 {
 
@@ -13,7 +16,12 @@ namespace sexp_cpp
 	{
 		public:
 			SExp(pExp lhs, pExp rhs, pOp op)
-				: mLhs(lhs), mRhs(rhs), mOp(op) {}
+				: mLhs(lhs), mRhs(rhs), mOp(op)
+      {
+        assert(NULL != lhs);
+        assert(NULL != rhs);
+        assert(NULL != op);
+      }
 			virtual ~SExp() {}
 
 			virtual int Evaluate(Context& context) const

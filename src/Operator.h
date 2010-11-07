@@ -6,6 +6,7 @@
 
 #include <cstddef>
 #include <stdexcept>
+#include <cassert>
 
 namespace sexp_cpp
 {
@@ -44,6 +45,8 @@ namespace sexp_cpp
 			virtual ~SubOperator() {}
 			virtual int Evaluate(pExp lhs, pExp rhs, Context& context) const 
 			{
+        assert(NULL != lhs);
+        assert(NULL != rhs);
 				return (lhs->Evaluate(context) - rhs->Evaluate(context));
 			}
 			virtual std::string WhoAmI() const {return "SubOperator";}
@@ -55,6 +58,8 @@ namespace sexp_cpp
 			virtual ~AddOperator() {}
 			virtual int Evaluate(pExp lhs, pExp rhs, Context& context) const
 			{
+        assert(NULL != lhs);
+        assert(NULL != rhs);
 				return (lhs->Evaluate(context) + rhs->Evaluate(context));
 			}
 			virtual std::string WhoAmI() const {return "AddOperator";}
