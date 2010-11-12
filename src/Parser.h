@@ -71,6 +71,7 @@ namespace sexp_cpp
         {
           throw std::invalid_argument("can't parse empty tokens list!");
         }
+
         std::string token = tokens.front();
         tokens.pop_front();
 
@@ -86,11 +87,32 @@ namespace sexp_cpp
 
           pVal lhs = ExpFactory::getValueExp(token);
 
-          token = GetNextToken(tokens);
+          token = GetNextToken(tokens); // TODO: consider check for "(" and run recursion here!
+
+          if (token == "(") // ( + 1 ( - 4 5 ) )
+          {
+            token = GetNextToken(tokens); // op
+            pOp op = OperatorFactory::getOperator(token);
+
+            token = GetNextToken(tokens); // lhs
+            pVal lhs = ExpFactory::getValueExp(token);
+
+            token = GetNextToken(tokens); // rhs
+            pVal rhs = ExpFactory::getValueExp(token);
+
+            pSExp sExp = ExpFactory::getSExp(lhs, rhs, op);
+
+            token = GetNextToken(tokens); // eat )
+
+            tokens.push_front(boost::lexical_cast<std::string>(sExp->Evaluate(context)));
+            token = GetNextToken(tokens); // eat sexp result
+          }
 
           pVal rhs = ExpFactory::getValueExp(token);
 
           pSExp sExp = ExpFactory::getSExp(lhs, rhs, op);
+
+          token = GetNextToken(tokens); // eat )
 
           return sExp->Evaluate(context);
         }
@@ -103,6 +125,7 @@ namespace sexp_cpp
           throw std::invalid_argument("TODO!");
         }
       }
+
       std::string GetNextToken(std::list<std::string>& tokens)
       {
         std::string token = tokens.front();
