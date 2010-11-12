@@ -18,8 +18,6 @@ namespace sexp_cpp
 
 		if (token == "(")
 		{
-			std::string token;
-
 			token = GetNextToken(tokens);
 			pOp op = OperatorFactory::getOperator(token);
 
@@ -45,7 +43,7 @@ namespace sexp_cpp
 				assert(token == ")");
 
 				tokens.push_front(boost::lexical_cast<std::string>(sExp->Evaluate(context)));
-				token = GetNextToken(tokens);
+				token = GetNextToken(tokens); // TODO: remove token
 			}
 
 			pVal rhs = ExpFactory::getValueExp(token);
@@ -68,6 +66,36 @@ namespace sexp_cpp
 		{
 			throw std::invalid_argument("TODO!");
 		}
+	}
+
+	void Lexer::LexSubExp(std::list<std::string>& tokens)
+	{
+		Context context; // TODO: think it over;
+		std::string token("");
+
+		token = GetNextToken(tokens);
+		assert(token == "(");
+
+		token = GetNextToken(tokens);
+		pOp op = OperatorFactory::getOperator(token);
+
+		token = GetNextToken(tokens);
+		pVal lhs = ExpFactory::getValueExp(token);
+
+		if(tokens.front() == "(") // this looks bad man but will do for a moment
+		{
+			LexSubExp(tokens);
+		}
+
+		token = GetNextToken(tokens);
+		pVal rhs = ExpFactory::getValueExp(token);
+
+		pSExp sExp = ExpFactory::getSExp(lhs, rhs, op);
+
+		token = GetNextToken(tokens);
+		assert(token == ")");
+
+		tokens.push_front(boost::lexical_cast<std::string>(sExp->Evaluate(context)));
 	}
 
 	std::string Lexer::GetNextToken(std::list<std::string>& tokens)

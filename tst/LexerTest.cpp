@@ -74,5 +74,43 @@ namespace
     EXPECT_EQ(0, lexer.Lex(sample));
     EXPECT_TRUE(sample.empty());
   }
+
+  TEST(LexerTest, LexSubExp)
+  {
+    // ( + 2 4 )
+    std::list<std::string> sample;
+    sample.push_back("(");
+    sample.push_back("+");
+    sample.push_back("2");
+    sample.push_back("4");
+    sample.push_back(")");
+
+    Lexer lexer;
+    lexer.LexSubExp(sample);
+    EXPECT_EQ("6", sample.front());
+    EXPECT_EQ(static_cast<size_t>(1), sample.size());
+  }
+  
+  TEST(LexerTest, LexerSubExpNested)
+  {
+    // ( + 1 ( - 4 5 ) )
+    // ( + 1 x ) where x = ( - 4 5 )
+
+    std::list<std::string> sample;
+    sample.push_back("(");
+    sample.push_back("+");
+    sample.push_back("1");
+    sample.push_back("(");
+    sample.push_back("-");
+    sample.push_back("4");
+    sample.push_back("5");
+    sample.push_back(")");
+    sample.push_back(")");
+
+    Lexer lexer;
+    lexer.LexSubExp(sample);
+    EXPECT_EQ("0", sample.front());
+    EXPECT_EQ(static_cast<size_t>(1), sample.size());
+  }
 }
 
