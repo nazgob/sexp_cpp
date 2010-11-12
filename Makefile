@@ -1,6 +1,7 @@
 _OBJS = \
        Context.o \
-       VarExp.o
+       VarExp.o \
+			 Lexer.o
 
 
 _TST_OBJS = \
@@ -8,7 +9,7 @@ _TST_OBJS = \
 						ContextTest.o \
 						OperatorTest.o \
 						SExpTest.o \
-						ParserTest.o
+						LexerTest.o
 
 #CC = g++ -g
 CC = clang++ -g

@@ -8,6 +8,7 @@
 
 namespace sexp_cpp
 {
+
 	Context::Context()
 	{
 		mOp.reset(new NullOperator());
@@ -39,5 +40,5 @@ namespace sexp_cpp
 		mContextMap[exp->getVarName()] = value;
 	}
 
-}
+} // sexp_cpp
 
