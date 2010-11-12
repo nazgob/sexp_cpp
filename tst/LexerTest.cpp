@@ -75,7 +75,7 @@ namespace
     EXPECT_TRUE(sample.empty());
   }
 
-  TEST(LexerTest, LexSubExp)
+  TEST(LexerTest, LexSubExpWithPlusOp)
   {
     // ( + 2 4 )
     std::list<std::string> sample;
@@ -91,7 +91,7 @@ namespace
     EXPECT_EQ(static_cast<size_t>(1), sample.size());
   }
   
-  TEST(LexerTest, LexerSubExpNested)
+  TEST(LexerTest, NestedSubExp)
   {
     // ( + 1 ( - 4 5 ) )
     // ( + 1 x ) where x = ( - 4 5 )

@@ -7,65 +7,19 @@ namespace sexp_cpp
 
 	int Lexer::Lex(std::list<std::string>& tokens)
 	{
-		Context context;
-
 		if(tokens.empty() == true)
 		{
 			throw std::invalid_argument("can't parse empty tokens list!");
 		}
+		if(tokens.front() != "(")
+		{
+			throw std::invalid_argument("SExp should start with '(' ");
+		}
+
+		LexSubExp(tokens);
 
 		std::string token = GetNextToken(tokens);
-
-		if (token == "(")
-		{
-			token = GetNextToken(tokens);
-			pOp op = OperatorFactory::getOperator(token);
-
-			token = GetNextToken(tokens);
-			pVal lhs = ExpFactory::getValueExp(token);
-
-			token = GetNextToken(tokens); // TODO: run recursion here!
-
-			if (token == "(")
-			{
-				token = GetNextToken(tokens);
-				pOp op = OperatorFactory::getOperator(token);
-
-				token = GetNextToken(tokens);
-				pVal lhs = ExpFactory::getValueExp(token);
-
-				token = GetNextToken(tokens);
-				pVal rhs = ExpFactory::getValueExp(token);
-
-				pSExp sExp = ExpFactory::getSExp(lhs, rhs, op);
-
-				token = GetNextToken(tokens);
-				assert(token == ")");
-
-				tokens.push_front(boost::lexical_cast<std::string>(sExp->Evaluate(context)));
-				token = GetNextToken(tokens); // TODO: remove token
-			}
-
-			pVal rhs = ExpFactory::getValueExp(token);
-
-			pSExp sExp = ExpFactory::getSExp(lhs, rhs, op);
-
-			token = GetNextToken(tokens);
-			assert(token == ")");
-
-			tokens.push_front(boost::lexical_cast<std::string>(sExp->Evaluate(context)));
-			token = GetNextToken(tokens);
-			
-			return boost::lexical_cast<int>(token);
-		}
-		else if(token == ")")
-		{
-			throw std::invalid_argument("can't parse ')' as first token!");
-		}
-		else
-		{
-			throw std::invalid_argument("TODO!");
-		}
+		return boost::lexical_cast<int>(token);
 	}
 
 	void Lexer::LexSubExp(std::list<std::string>& tokens)
