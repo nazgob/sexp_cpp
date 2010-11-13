@@ -3,6 +3,8 @@
 #include "../src/Tokenizer.h"
 #include "../src/Utils.h"
 
+#include "../tst/DataFactory.h"
+
 using namespace sexp_cpp;
 
 #include <stdexcept>
@@ -19,7 +21,10 @@ namespace
 
 	TEST(TokenizerTest, SimpleSExp)
 	{
-		std::string sample = "( + 2 3 )";
+		// ( + 2 3 )
+		std::string sample;
+		DataFactory::FillWithSimpleSExp(sample);
+
 		Tokenizer tokenizer;
 		std::list<std::string> list = tokenizer.Tokenize(sample);
 
@@ -33,7 +38,10 @@ namespace
 
 	TEST(TokenizerTest, NestedSExp)
 	{
-		std::string sample = "( + 1 ( - 4 5 ) )";
+		// ( + 1 ( - 4 5 ) )
+		std::string sample;
+		DataFactory::FillWithNestedSExp(sample);
+
 		Tokenizer tokenizer;
 		std::list<std::string> list = tokenizer.Tokenize(sample);
 

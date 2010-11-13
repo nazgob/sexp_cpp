@@ -6,6 +6,7 @@ _OBJS = \
 
 _TST_OBJS = \
 						test_main.o \
+						DataFactory.o \
 						ContextTest.o \
 						OperatorTest.o \
 						SExpTest.o \

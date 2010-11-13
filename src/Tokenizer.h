@@ -5,6 +5,7 @@
 #include <string>
 #include <stdexcept>
 #include <sstream>
+#include <iterator>
 
 namespace sexp_cpp
 {
