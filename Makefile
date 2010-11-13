@@ -9,7 +9,8 @@ _TST_OBJS = \
 						ContextTest.o \
 						OperatorTest.o \
 						SExpTest.o \
-						LexerTest.o
+						LexerTest.o \
+						TokenizerTest.o
 
 #CC = g++ -g
 CC = clang++ -g

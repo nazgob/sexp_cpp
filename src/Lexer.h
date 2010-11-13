@@ -15,10 +15,6 @@
 namespace sexp_cpp
 {
 
-  class Tokenizer // TODO: move it to proper file
-  {
-  };
-
   class Formater // TODO: this will convert SExp to format (op lhs, rhs)
   {
   };
