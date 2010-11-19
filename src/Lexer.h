@@ -60,9 +60,9 @@ namespace sexp_cpp
     public:
       int Lex(std::list<std::string>& tokens);
 
-			void LexSubExp(std::list<std::string>& tokens);
-      
-			std::string GetNextToken(std::list<std::string>& tokens);
+      void LexSubExp(std::list<std::string>& tokens);
+
+      std::string GetNextToken(std::list<std::string>& tokens);
   };
 
 } // sexp_cpp

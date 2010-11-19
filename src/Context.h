@@ -11,18 +11,18 @@ namespace sexp_cpp
   class Context
   {
     public:
-			Context();
-			~Context();
-			void Assign(pVar exp, int value);
+      Context();
+      ~Context();
+      void Assign(pVar exp, int value);
       int Lookup(const std::string& varName) const;
 
-			void Assign(pOp op);
-			pOp GetOp() const {return mOp;}
+      void Assign(pOp op);
+      pOp GetOp() const {return mOp;}
 
     protected:
       typedef std::map<std::string, int> ContextType;
       ContextType mContextMap;
-			pOp mOp;
+      pOp mOp;
   };
 
 } // sexp_cpp

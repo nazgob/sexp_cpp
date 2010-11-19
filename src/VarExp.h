@@ -18,7 +18,7 @@ namespace sexp_cpp
 
       const std::string& getVarName() const {return mVarName;}
 
-			virtual std::string WhoAmI() const {return "VarExp";}
+      virtual std::string WhoAmI() const {return "VarExp";}
     protected:
       std::string mVarName;
   };
