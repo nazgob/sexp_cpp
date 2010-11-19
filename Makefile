@@ -30,7 +30,7 @@ DOC_DIR = doc/
 OBJS = $(patsubst %,$(OBJ_DIR)%,$(_OBJS))
 TST_OBJS = $(patsubst %,$(TST_DIR)%,$(_TST_OBJS))
  
-BOOST_DIR = /opt/local/var/macports/software/boost/1.44.0_0/opt/local/include
+BOOST_DIR = $(BOOST_INC) 
 W_FLAGS = -Wall -Wextra #TODO: -pedantic couses problems with long long and google test
 I_FLAGS = -I/opt/local/include -I$(BOOST_DIR)
 L_FLAGS = -L/opt/local/lib -lgtest -L./$(LIB_DIR) -lsexp_cpp
