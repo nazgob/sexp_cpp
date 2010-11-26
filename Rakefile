@@ -27,7 +27,7 @@ task :lib => [LIBFILE]
 file PROG do
 #file PROG => TST_OBJ do
   TST_OBJ.each do |t|
-    sh "g++ #{I_FLAGS} -c -o #{t} #{find_source_tst(t)}" 
+    sh "g++ #{I_FLAGS} -c -o #{t} #{find_source(t, TST)}" 
     puts file
   end
   sh "g++ -o #{PROG} #{TST_OBJ} -L. -l#{LIBNAME} -L/opt/local/lib -lgtest" 
@@ -40,18 +40,13 @@ end
 
 directory OBJDIR
 
-rule '.o' => lambda{ |objfile| find_source(objfile) } do |t|
+rule '.o' => lambda{ |objfile| find_source(objfile, SRC) } do |t|
   Task[OBJDIR].invoke
   sh "g++ #{I_FLAGS} -c -o #{t.name} #{t.source}" 
 end
 
-def find_source(objfile)
+def find_source(objfile, dir)
   base = File.basename(objfile, '.o')
-  SRC.find { |s| File.basename(s, '.cpp') == base }
-end
-
-def find_source_tst(objfile)
-  base = File.basename(objfile, '.o')
-  TST.find { |s| File.basename(s, '.cpp') == base }
+  dir.find { |s| File.basename(s, '.cpp') == base }
 end
 
