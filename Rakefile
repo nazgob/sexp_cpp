@@ -1,9 +1,10 @@
 require 'rake/clean'
+require 'rake/classic_namespace'
 
 PROG = "sexp" 
 LIBNAME = PROG
 LIBFILE = "lib#{LIBNAME}.a" 
-CC = "clang++ -g"
+CC = "clang++ -g" #TODO: when clang++ is not found, default to g++
 
 BOOST_DIR = "/opt/local/var/macports/software/boost/1.44.0_0/opt/local/include"
 I_FLAGS = "-I/opt/local/include -I#{BOOST_DIR}"
@@ -25,7 +26,7 @@ task :default => [:lib, :test, :run]
 
 task :lib => [LIBFILE]
 
-task :test => [PROG]
+task :test => [:lib, PROG]
 
 task :run => [PROG] do
   sh "./#{PROG}" 
