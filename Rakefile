@@ -10,6 +10,7 @@ I_FLAGS = "-I/opt/local/include -I#{BOOST_DIR}"
 
 SRC = FileList['src/*.cpp']
 TST = FileList['tst/*.cpp']
+ALL = SRC | TST
 
 OBJDIR = 'obj'
 SRC_OBJ = SRC.collect { |fn| File.join(OBJDIR, File.basename(fn).ext('o')) }
@@ -27,7 +28,7 @@ task :lib => [LIBFILE]
 file PROG do
 #file PROG => TST_OBJ do
   TST_OBJ.each do |t|
-    sh "g++ #{I_FLAGS} -c -o #{t} #{find_source(t, TST)}" 
+    sh "g++ #{I_FLAGS} -c -o #{t} #{find_source(t)}" 
     puts file
   end
   sh "g++ -o #{PROG} #{TST_OBJ} -L. -l#{LIBNAME} -L/opt/local/lib -lgtest" 
@@ -40,13 +41,13 @@ end
 
 directory OBJDIR
 
-rule '.o' => lambda{ |objfile| find_source(objfile, SRC) } do |t|
+rule '.o' => lambda{ |objfile| find_source(objfile) } do |t|
   Task[OBJDIR].invoke
   sh "g++ #{I_FLAGS} -c -o #{t.name} #{t.source}" 
 end
 
-def find_source(objfile, dir)
+def find_source(objfile)
   base = File.basename(objfile, '.o')
-  dir.find { |s| File.basename(s, '.cpp') == base }
+  ALL.find { |s| File.basename(s, '.cpp') == base }
 end
 
