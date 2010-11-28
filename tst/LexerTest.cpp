@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "../src/Lexer.h"
-#include "../src/Utils.h"
-#include "../tst/DataFactory.h"
+#include "DataFactory.hpp"
+#include "../src/Lexer.hpp"
+#include "../src/Utils.hpp"
 
 using namespace sexp_cpp;
 

@@ -1,9 +1,8 @@
 #include <gtest/gtest.h>
 
-#include "../src/Tokenizer.h"
-#include "../src/Utils.h"
-
-#include "../tst/DataFactory.h"
+#include "DataFactory.hpp"
+#include "../src/Tokenizer.hpp"
+#include "../src/Utils.hpp"
 
 using namespace sexp_cpp;
 

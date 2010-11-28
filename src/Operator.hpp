@@ -1,8 +1,8 @@
 #ifndef OPERATOR_H
 #define OPERATOR_H
 
-#include "Exp.h"
-#include "Utils.h"
+#include "Exp.hpp"
+#include "Utils.hpp"
 
 #include <cstddef>
 #include <stdexcept>

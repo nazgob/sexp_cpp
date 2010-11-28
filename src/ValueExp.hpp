@@ -1,7 +1,8 @@
 #ifndef VALUE_EXP_H
 #define VALUE_EXP_H 
 
-#include "Exp.h"
+#include "Exp.hpp"
+
 #include <string>
 
 namespace sexp_cpp

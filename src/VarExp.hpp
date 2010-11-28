@@ -1,7 +1,7 @@
 #ifndef VAREXP_H
 #define VAREXP_H
 
-#include "Exp.h"
+#include "Exp.hpp"
 #include <string>
 
 namespace sexp_cpp

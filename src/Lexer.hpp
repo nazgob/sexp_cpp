@@ -7,10 +7,10 @@
 
 #include <boost/lexical_cast.hpp>
 
-#include "../src/SExp.h"
-#include "../src/ValueExp.h"
-#include "../src/Operator.h"
-#include "../src/Utils.h"
+#include "SExp.hpp"
+#include "ValueExp.hpp"
+#include "Operator.hpp"
+#include "Utils.hpp"
 
 namespace sexp_cpp
 {

@@ -1,7 +1,7 @@
-#include "Context.h"
-#include "VarExp.h"
-#include "Operator.h"
-#include "Utils.h"
+#include "Context.hpp"
+#include "VarExp.hpp"
+#include "Operator.hpp"
+#include "Utils.hpp"
 
 #include <stdexcept>
 #include <cassert>

@@ -1,5 +1,5 @@
-#include "VarExp.h"
-#include "Context.h"
+#include "VarExp.hpp"
+#include "Context.hpp"
 
 namespace sexp_cpp
 {

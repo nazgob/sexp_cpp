@@ -1,6 +1,5 @@
-#include "Lexer.h"
-
-#include "../src/Context.h"
+#include "Lexer.hpp"
+#include "Context.hpp"
 
 namespace sexp_cpp
 {

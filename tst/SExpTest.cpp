@@ -1,10 +1,11 @@
 #include <gtest/gtest.h>
-#include "../src/SExp.h"
-#include "../src/VarExp.h"
-#include "../src/ValueExp.h"
-#include "../src/Operator.h"
-#include "../src/Context.h"
-#include "../src/Utils.h"
+
+#include "../src/SExp.hpp"
+#include "../src/VarExp.hpp"
+#include "../src/ValueExp.hpp"
+#include "../src/Operator.hpp"
+#include "../src/Context.hpp"
+#include "../src/Utils.hpp"
 
 using namespace sexp_cpp;
 

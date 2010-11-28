@@ -1,7 +1,8 @@
 #include <gtest/gtest.h>
-#include "../src/VarExp.h"
-#include "../src/Operator.h"
-#include "../src/Context.h"
+
+#include "../src/VarExp.hpp"
+#include "../src/Operator.hpp"
+#include "../src/Context.hpp"
 
 using namespace sexp_cpp;
 

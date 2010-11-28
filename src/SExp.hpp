@@ -1,10 +1,10 @@
 #ifndef SEXP_H
 #define SEXP_H
 
-#include "Exp.h"
-#include "Operator.h"
-#include "Context.h"
-#include "Utils.h"
+#include "Exp.hpp"
+#include "Operator.hpp"
+#include "Context.hpp"
+#include "Utils.hpp"
 
 #include <cassert>
 #include <string>

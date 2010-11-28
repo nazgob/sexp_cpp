@@ -1,5 +1,5 @@
-#include "../tst/DataFactory.h"
-#include "../src/Tokenizer.h"
+#include "DataFactory.hpp"
+#include "../src/Tokenizer.hpp"
 
 namespace sexp_cpp
 {
