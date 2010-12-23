@@ -6,6 +6,7 @@ LIBNAME = PROG
 LIBFILE = "lib#{LIBNAME}.a" 
 CC = "clang++ -g" #TODO: when clang++ is not found, default to g++
 
+BIN_DIR = "bin"
 LIB_DIR = "lib"
 
 BOOST_DIR = ENV['BOOST_INC']
@@ -31,7 +32,7 @@ task :lib => [LIBFILE]
 task :test => [:lib, PROG]
 
 task :run => [PROG] do
-  sh "./#{PROG}" 
+  sh "./#{BIN_DIR}/#{PROG}" 
 end
 
 task :docs do
@@ -40,7 +41,7 @@ task :docs do
 end
 
 file PROG => TST_OBJ do
-  sh "#{CC} #{W_FLAGS} -o #{PROG} #{TST_OBJ} #{L_FLAGS}"
+  sh "#{CC} #{W_FLAGS} -o #{BIN_DIR}/#{PROG} #{TST_OBJ} #{L_FLAGS}"
 end
 
 file LIBFILE => SRC_OBJ do
