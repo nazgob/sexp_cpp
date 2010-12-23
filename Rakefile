@@ -6,9 +6,11 @@ LIBNAME = PROG
 LIBFILE = "lib#{LIBNAME}.a" 
 CC = "clang++ -g" #TODO: when clang++ is not found, default to g++
 
+LIB_DIR = "lib"
+
 BOOST_DIR = ENV['BOOST_INC']
 I_FLAGS = "-I/opt/local/include -I#{BOOST_DIR}"
-L_FLAGS = "-L. -l#{LIBNAME} -L/opt/local/lib -lgtest"
+L_FLAGS = "-L. -L#{LIB_DIR} -l#{LIBNAME} -L/opt/local/lib -lgtest"
 W_FLAGS = "-Wall -Wextra" #TODO: -pedantic couses problems with long long and google test
 
 SRC = FileList['src/*.cpp']
@@ -42,8 +44,8 @@ file PROG => TST_OBJ do
 end
 
 file LIBFILE => SRC_OBJ do
-  sh "ar cr #{LIBFILE} #{SRC_OBJ}" 
-  sh "ranlib #{LIBFILE}" 
+  sh "ar cr #{LIB_DIR}/#{LIBFILE} #{SRC_OBJ}" 
+  sh "ranlib #{LIB_DIR}/#{LIBFILE}" 
 end
 
 directory OBJDIR
