@@ -24,7 +24,7 @@ SRC_OBJ = SRC.collect { |fn| File.join(OBJDIR, File.basename(fn).ext('o')) }
 TST_OBJ = TST.collect { |fn| File.join(OBJDIR, File.basename(fn).ext('o')) }
 
 CLEAN.include(OBJDIR)
-CLOBBER.include("#{BIN_DIR}/#{TEST_EXEC}")
+CLOBBER.include("#{BIN_DIR}/#{TEST_EXEC}", "#{LIB_DIR}/#{LIBFILE}")
 
 task :default => [:lib, :test, :run]
 
