@@ -7,4 +7,5 @@
 html/
 *.a
 sexp
+test_sexp
 

@@ -1,8 +1,9 @@
 require 'rake/clean'
 require 'rake/classic_namespace'
 
-PROG = "sexp" 
-LIBNAME = PROG
+EXEC = "sexp" 
+TEST_EXEC = "test_sexp"
+LIBNAME = EXEC
 LIBFILE = "lib#{LIBNAME}.a" 
 CC = "clang++ -g" #TODO: when clang++ is not found, default to g++
 
@@ -22,26 +23,29 @@ OBJDIR = 'obj'
 SRC_OBJ = SRC.collect { |fn| File.join(OBJDIR, File.basename(fn).ext('o')) }
 TST_OBJ = TST.collect { |fn| File.join(OBJDIR, File.basename(fn).ext('o')) }
 
-CLEAN.include(PROG, SRC_OBJ, TST_OBJ, OBJDIR, LIBFILE)
-CLOBBER.include(PROG)
+CLEAN.include(OBJDIR)
+CLOBBER.include("#{BIN_DIR}/#{TEST_EXEC}")
 
 task :default => [:lib, :test, :run]
 
 task :lib => [LIBFILE]
 
-task :test => [:lib, PROG]
+task :test => [:lib, TEST_EXEC]
 
-task :run => [PROG] do
-  sh "./#{BIN_DIR}/#{PROG}" 
+task :run => [TEST_EXEC] do
+  sh "./#{BIN_DIR}/#{TEST_EXEC}" 
 end
+
+#task :clean => [:clobber]
 
 task :docs do
   puts "Making doxygen docs!"
   sh "doxygen doc/Doxyfile"
 end
 
-file PROG => TST_OBJ do
-  sh "#{CC} #{W_FLAGS} -o #{BIN_DIR}/#{PROG} #{TST_OBJ} #{L_FLAGS}"
+
+file TEST_EXEC => TST_OBJ do
+  sh "#{CC} #{W_FLAGS} -o #{BIN_DIR}/#{TEST_EXEC} #{TST_OBJ} #{L_FLAGS}"
 end
 
 file LIBFILE => SRC_OBJ do
