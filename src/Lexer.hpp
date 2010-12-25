@@ -62,6 +62,7 @@ namespace sexp_cpp
 
       void LexSubExp(std::list<std::string>& tokens);
 
+    protected:
       std::string GetNextToken(std::list<std::string>& tokens);
   };
 

@@ -3,6 +3,7 @@
 *.o
 *.txt
 *.so
+*.dSYM
 .DS_Store
 html/
 *.a

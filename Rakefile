@@ -30,6 +30,8 @@ task :default => [:lib, :test, :run]
 
 task :lib => [LIBFILE]
 
+task :exec => [:lib, EXEC]
+
 task :test => [:lib, TEST_EXEC]
 
 task :run => [TEST_EXEC] do
@@ -43,6 +45,10 @@ task :docs do
   sh "doxygen doc/Doxyfile"
 end
 
+#TODO: exec inclues lgtest...
+file EXEC do
+  sh "#{CC} #{W_FLAGS} -o #{BIN_DIR}/#{EXEC} main.cpp -I./src #{I_FLAGS} #{L_FLAGS}"
+end
 
 file TEST_EXEC => TST_OBJ do
   sh "#{CC} #{W_FLAGS} -o #{BIN_DIR}/#{TEST_EXEC} #{TST_OBJ} #{L_FLAGS}"
