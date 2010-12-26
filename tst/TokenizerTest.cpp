@@ -55,6 +55,6 @@ namespace
 		EXPECT_EQ(")", list.front()); list.pop_front();
 		EXPECT_EQ(")", list.front()); list.pop_front();
 	}
-
+  
 }
 

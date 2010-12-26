@@ -6,6 +6,7 @@
 *.dSYM
 .DS_Store
 html/
+obj
 *.a
 sexp
 test_sexp

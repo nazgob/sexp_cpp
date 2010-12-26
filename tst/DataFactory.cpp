@@ -3,8 +3,8 @@
 
 namespace sexp_cpp
 {
-	std::string DataFactory::simpleSExp = "( + 2 3 )";
-	std::string DataFactory::nestedSExp = "( + 1 ( - 4 5 ) )";
+	std::string DataFactory::simpleSExp = "(+ 2 3)";
+	std::string DataFactory::nestedSExp = "(+ 1 (- 4 5))";
 
 	void DataFactory::FillWithSimpleSExp(std::string& simple)
 	{
