@@ -25,7 +25,10 @@ namespace sexp_cpp
 
         std::list<std::string> list;
         std::istringstream ss(code);
-        list.insert(list.end(), std::istream_iterator<std::string>(ss), std::istream_iterator<std::string>());
+        list.insert(list.end(),
+                    std::istream_iterator<std::string>(ss),
+                    std::istream_iterator<std::string>());
+
         return list;
       }
 
