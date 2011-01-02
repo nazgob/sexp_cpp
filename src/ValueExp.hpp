@@ -9,7 +9,7 @@ namespace sexp_cpp
 {
   class Context;
 
-  class ValueExp : public Exp
+  class ValueExp : public Exp // TODO: change name to ValExp to be consistent with VarExp
   {
     public:
       ValueExp(int value) : mValue(value) {}

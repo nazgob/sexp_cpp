@@ -3,16 +3,25 @@
 #include <sstream>
 #include <list>
 
+#include <Context.hpp>
 #include <Tokenizer.hpp>
-#include <Lexer.hpp>
+//#include <Lexer.hpp>
+
+#include <Reader.hpp>
+#include <Utils.hpp>
+
+using namespace sexp_cpp;
 
 int main()
 {
   const std::string prompt = "sexp> ";
+  Context context;
 
+  // read-eval-print-loop => REPL
+  
   while(1)
   {
-    // read
+    // input
     std::cout << prompt;
     std::string input = "";
     getline(std::cin, input);
@@ -21,15 +30,26 @@ int main()
     try
     {
       // parse
-      sexp_cpp::Tokenizer tokenizer;
+      Tokenizer tokenizer;
       std::list<std::string> list = tokenizer.Tokenize(instream.str());
 
+      // read
+      Reader reader;
+      pExp exp = reader.Read(list);
+      assert(NULL != exp.get());
+
       // eval
-      sexp_cpp::Lexer lexer;
-      lexer.LexSubExp(list);
+      std::cout << exp->Evaluate(context) << std::endl; // TODO: we use self-evaluating stuff just for now
 
       // print
-      std::cout << list.front() << std::endl;
+      // TODO: implement printing
+
+      // eval
+      //sexp_cpp::Lexer lexer;
+      //lexer.LexSubExp(list);
+
+      // print
+      //std::cout << list.front() << std::endl;
     }
     catch(std::exception& e)
     {
