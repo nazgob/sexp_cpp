@@ -36,6 +36,8 @@ namespace sexp_cpp
           }
         }
 
+        pExp NullExp;
+        return NullExp;
       }
   };
 

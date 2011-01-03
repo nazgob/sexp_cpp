@@ -30,6 +30,11 @@ namespace sexp_cpp
       }
 
       virtual std::string WhoAmI() const {return "SExp";}
+      
+      virtual std::string Write() const
+      {
+        return "//TODO!!!"; //TODO: implement!
+      }
 
     protected:
       pExp mLhs;

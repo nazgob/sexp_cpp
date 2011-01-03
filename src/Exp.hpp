@@ -13,6 +13,7 @@ namespace sexp_cpp
       virtual ~Exp() {}
       virtual int Evaluate(Context&) const = 0;
       virtual std::string WhoAmI() const = 0;
+      virtual std::string Write() const = 0;
   };
 
 } // sexp_cpp

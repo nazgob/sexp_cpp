@@ -42,14 +42,12 @@ int main()
       std::cout << exp->Evaluate(context) << std::endl; // TODO: we use self-evaluating stuff just for now
 
       // print
-      // TODO: implement printing
+      std::cout << exp->Write() << std::endl;
 
       // eval
       //sexp_cpp::Lexer lexer;
       //lexer.LexSubExp(list);
 
-      // print
-      //std::cout << list.front() << std::endl;
     }
     catch(std::exception& e)
     {

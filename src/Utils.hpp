@@ -18,6 +18,7 @@ namespace sexp_cpp
   typedef boost::shared_ptr<ValueExp> pVal;
   typedef boost::shared_ptr<BoolExp> pBool;
   typedef boost::shared_ptr<SExp> pSExp;
+
 } // sexp_cpp
 
 #endif // UTILS_H

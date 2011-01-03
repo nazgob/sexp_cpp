@@ -4,6 +4,7 @@
 #include "Exp.hpp"
 
 #include <string>
+#include <boost/lexical_cast.hpp>
 
 namespace sexp_cpp
 {
@@ -18,6 +19,12 @@ namespace sexp_cpp
       virtual int Evaluate(Context&) const {return mValue;}
 
       virtual std::string WhoAmI() const {return "ValueExp";}
+      
+      virtual std::string Write() const
+      {
+        return boost::lexical_cast<std::string>(mValue);
+      }
+
     protected:
       int mValue; //TODO: refactor to T type for more types
   };

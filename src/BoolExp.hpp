@@ -18,6 +18,12 @@ namespace sexp_cpp
       virtual int Evaluate(Context&) const {return mValue;} // TODO: return bool?
 
       virtual std::string WhoAmI() const {return "BoolExp";}
+      
+      virtual std::string Write() const
+      {
+        return mValue ? "#t" : "#f";
+      }
+
     protected:
       bool mValue; 
   };
