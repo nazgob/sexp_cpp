@@ -6,6 +6,8 @@
 #include <string>
 #include <boost/lexical_cast.hpp>
 
+//TODO: think over error handling here
+
 class Recognizer
 {
   public:
@@ -20,6 +22,16 @@ class Recognizer
       {
         return false;
       }
+    }
+
+    static bool IsBoolean(const std::string& token)
+    {
+      if(token[0] == '#' && (token[1] == 't' || token[1] == 'f') && token.size() == 2)
+      {
+        return true;
+      }
+
+      return false;
     }
 };
 
