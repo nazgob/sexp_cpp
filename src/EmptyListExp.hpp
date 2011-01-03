@@ -17,7 +17,7 @@ namespace sexp_cpp
 
       virtual int Evaluate(Context&) const {return 0;} // TODO: return what?
 
-      virtual std::string WhoAmI() const {return "BoolExp";}
+      virtual std::string WhoAmI() const {return "EmptyListExp";}
 
       virtual std::string Write() const
       {

@@ -43,6 +43,16 @@ class Recognizer
       
       return false;
     }
+
+    static bool IsList(const std::list<std::string>& tokens)
+    {
+      if(tokens.front() == "(" && tokens.back() == ")" && tokens.size() >= 4) // 2 brackets + 2 args
+      {
+        return true;
+      }
+      
+      return false;
+    }
 };
 
 #endif // RECOGNIZER_HPP

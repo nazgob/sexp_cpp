@@ -22,6 +22,7 @@ namespace sexp_cpp
         assert(NULL != rhs);
         assert(NULL != op);
       }
+
       virtual ~SExp() {}
 
       virtual int Evaluate(Context& context) const

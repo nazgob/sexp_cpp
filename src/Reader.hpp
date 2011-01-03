@@ -9,6 +9,7 @@
 #include <ValueExp.hpp>
 #include <BoolExp.hpp>
 #include <EmptyListExp.hpp>
+#include <PairExp.hpp>
 
 namespace sexp_cpp
 {
@@ -16,19 +17,21 @@ namespace sexp_cpp
   class Reader
   {
     public:
-      pExp Read(const std::list<std::string>& tokens)
+      pExp Read(std::list<std::string>& tokens)
       {
         std::string token = tokens.front();
 
         // integers
         if(Recognizer::IsInteger(token))
         {
+          tokens.pop_front();
           return pVal(new ValueExp(boost::lexical_cast<int>(token))); // TODO: handle errors
         }
 
         // booleans
         if(Recognizer::IsBoolean(token))
         {
+          tokens.pop_front();
           if(token == "#t")
           {
             return pBool(new BoolExp(true));
@@ -42,7 +45,20 @@ namespace sexp_cpp
         // empty lists
         if(Recognizer::IsEmptyList(token))
         {
+          tokens.pop_front();
           return pEList(new EmptyListExp());
+        }
+
+        // lists
+        if(Recognizer::IsList(tokens))
+        {
+          assert(tokens.front() == "(");
+          tokens.pop_front();
+
+          pExp car(Read(tokens));
+          pExp cdr(Read(tokens));
+
+          return pPair(new PairExp(car, cdr));
         }
 
         pExp NullExp;
