@@ -20,8 +20,8 @@ namespace sexp_cpp
           throw std::invalid_argument("can't tokenize empty string!");
         }
 
-        replace(code, "(", " ( ");
-        replace(code, ")", " ) ");
+        //replace(code, "(", " ( ");
+        //replace(code, ")", " ) ");
 
         std::list<std::string> list;
         std::istringstream ss(code);
@@ -32,17 +32,17 @@ namespace sexp_cpp
         return list;
       }
 
-    private:
-      void replace(std::string& string, const std::string& from, const std::string& to)
-      {
-        size_t i = 0;
-        size_t next = 0;
-        while ((next = string.find(from, i)) != std::string::npos)
-        {
-          string.replace(next, from.size(), to);
-          i = next + to.size(); 
-        }
-      }
+    //private:
+      //void replace(std::string& string, const std::string& from, const std::string& to)
+      //{
+        //size_t i = 0;
+        //size_t next = 0;
+        //while ((next = string.find(from, i)) != std::string::npos)
+        //{
+          //string.replace(next, from.size(), to);
+          //i = next + to.size(); 
+        //}
+      //}
 
   };
 

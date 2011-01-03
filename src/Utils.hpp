@@ -10,6 +10,7 @@ namespace sexp_cpp
   class VarExp;
   class ValueExp;
   class BoolExp;
+  class EmptyListExp;
   class SExp;
 
   typedef boost::shared_ptr<Exp> pExp;
@@ -17,6 +18,7 @@ namespace sexp_cpp
   typedef boost::shared_ptr<VarExp> pVar;
   typedef boost::shared_ptr<ValueExp> pVal;
   typedef boost::shared_ptr<BoolExp> pBool;
+  typedef boost::shared_ptr<EmptyListExp> pEList;
   typedef boost::shared_ptr<SExp> pSExp;
 
 } // sexp_cpp

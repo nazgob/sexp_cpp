@@ -8,6 +8,7 @@
 #include <Utils.hpp>
 #include <ValueExp.hpp>
 #include <BoolExp.hpp>
+#include <EmptyListExp.hpp>
 
 namespace sexp_cpp
 {
@@ -19,11 +20,13 @@ namespace sexp_cpp
       {
         std::string token = tokens.front();
 
+        // integers
         if(Recognizer::IsInteger(token))
         {
           return pVal(new ValueExp(boost::lexical_cast<int>(token))); // TODO: handle errors
         }
 
+        // booleans
         if(Recognizer::IsBoolean(token))
         {
           if(token == "#t")
@@ -34,6 +37,12 @@ namespace sexp_cpp
           {
             return pBool(new BoolExp(false));
           }
+        }
+
+        // empty lists
+        if(Recognizer::IsEmptyList(token))
+        {
+          return pEList(new EmptyListExp());
         }
 
         pExp NullExp;

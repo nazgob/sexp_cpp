@@ -33,6 +33,16 @@ class Recognizer
 
       return false;
     }
+
+    static bool IsEmptyList(const std::string& token)
+    {
+      if(token[0] == '(' && token[1] == ')' && token.size() == 2)
+      {
+        return true;
+      }
+      
+      return false;
+    }
 };
 
 #endif // RECOGNIZER_HPP
