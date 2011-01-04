@@ -55,14 +55,24 @@ namespace sexp_cpp
           assert(tokens.front() == "(");
           tokens.pop_front();
 
-          pExp car(Read(tokens));
-          pExp cdr(Read(tokens));
-
-          return pPair(new PairExp(car, cdr));
+          return ReadList(tokens);
         }
 
         pExp NullExp;
         return NullExp;
+      }
+
+      pExp ReadList(std::list<std::string>& tokens)
+      {
+        if(tokens.front() == ")")
+        {
+          return pEList(new EmptyListExp());
+        }
+
+        pExp car(Read(tokens));
+        pExp cdr(ReadList(tokens));
+
+        return pPair(new PairExp(car, cdr));
       }
   };
 
