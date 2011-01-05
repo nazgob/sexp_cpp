@@ -7,6 +7,8 @@
 using namespace sexp_cpp;
 
 #include <stdexcept>
+#include <list>
+#include <string>
 
 namespace
 {

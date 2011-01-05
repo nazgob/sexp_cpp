@@ -7,19 +7,21 @@
 namespace sexp_cpp
 {
 
-	class DataFactory
-	{
-		public:
-			static void FillWithSimpleSExp(std::string& simple);
-			static void FillWithSimpleSExp(std::list<std::string>& simple);
+  class DataFactory
+  {
+    public:
+      static std::list<std::string> GetList(const std::string& list);
 
-			static void FillWithNestedSExp(std::string& nested);
-			static void FillWithNestedSExp(std::list<std::string>& nested);
+      static void FillWithSimpleSExp(std::string& simple);
+      static void FillWithSimpleSExp(std::list<std::string>& simple);
 
-		private:
-			static std::string simpleSExp;
-			static std::string nestedSExp;
-	};
+      static void FillWithNestedSExp(std::string& nested);
+      static void FillWithNestedSExp(std::list<std::string>& nested);
+
+    private:
+      static std::string simpleSExp;
+      static std::string nestedSExp;
+  };
 
 } // sexp_cpp
 
