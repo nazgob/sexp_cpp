@@ -2,56 +2,24 @@
 #define RECOGNIZER_HPP
 
 #include <string>
-#include <boost/lexical_cast.hpp>
+#include <list>
 
-//TODO: think over error handling here
-
-class Recognizer
+namespace sexp_cpp
 {
-  public:
-    static bool IsInteger(const std::string& token)
-    {
-      try
-      {
-        boost::lexical_cast<int>(token);
-        return true;
-      }
-      catch(boost::bad_lexical_cast)
-      {
-        return false;
-      }
-    }
 
-    static bool IsBoolean(const std::string& token)
-    {
-      if(token[0] == '#' && (token[1] == 't' || token[1] == 'f') && token.size() == 2)
-      {
-        return true;
-      }
+  class Recognizer
+  {
+    public:
+      static bool IsInteger(const std::string& token);
 
-      return false;
-    }
+      static bool IsBoolean(const std::string& token);
 
-    static bool IsEmptyList(const std::string& token)
-    {
-      if(token[0] == '(' && token[1] == ')' && token.size() == 2)
-      {
-        return true;
-      }
-      
-      return false;
-    }
+      static bool IsEmptyList(const std::string& token);
 
-    static bool IsList(const std::list<std::string>& tokens)
-    {
-      if(tokens.front() == "(" && tokens.back() == ")" && tokens.size() >= 4) // 2 brackets + 2 args
-      {
-        return true;
-      }
-      
-      return false;
-    }
-};
+      static bool IsList(const std::list<std::string>& tokens);
+  };
+
+} // sexp_cpp
 
 #endif // RECOGNIZER_HPP
 
