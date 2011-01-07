@@ -58,5 +58,15 @@ namespace sexp_cpp
     return false;
   }
 
+  bool Recognizer::IsQuoted(const std::string& token)
+  {
+    if(token == "quote" || token[0] == '\'') // TODO: quote has shortcut '
+    {
+      return true;
+    }
+
+    return false;
+  }
+  
 } // sexp_cpp
 

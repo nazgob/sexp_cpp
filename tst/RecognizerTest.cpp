@@ -60,6 +60,18 @@ namespace
     EXPECT_TRUE(Recognizer::IsList(DataFactory::GetList(variadicList)));
     EXPECT_FALSE(Recognizer::IsList(DataFactory::GetList(emptyList)));
   }
+  
+  TEST(RecognizerTest, IsQuoted)
+  {
+    std::string quotedSymbol = "'a";
+    EXPECT_TRUE(Recognizer::IsQuoted(quotedSymbol));
+
+    std::string quotedTruth = "'#t";
+    EXPECT_TRUE(Recognizer::IsQuoted(quotedTruth));
+    
+    std::string quotedInteger = "'123";
+    EXPECT_TRUE(Recognizer::IsQuoted(quotedInteger));
+  }
 
 }
 

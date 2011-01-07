@@ -19,6 +19,8 @@ namespace sexp_cpp
       static bool IsEmptyList(const std::string& token);
 
       static bool IsList(const std::list<std::string>& tokens);
+
+      static bool IsQuoted(const std::string& token);
   };
 
 } // sexp_cpp
