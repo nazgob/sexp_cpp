@@ -1,12 +1,13 @@
 #include "VarExp.hpp"
 #include "Context.hpp"
+#include "ValueExp.hpp"
 
 namespace sexp_cpp
 {
 
-  int VarExp::Evaluate(Context& context) const
+  pExp VarExp::Evaluate(Context& context) const
   {
-    return context.Lookup(getVarName());
+    return pExp(new ValueExp(context.Lookup(getVarName()))); // TODO: Context should use proper type!
   }
 
 } // sexp_cpp

@@ -14,7 +14,7 @@ namespace sexp_cpp
       VarExp(const std::string& varName) : mVarName(varName) {}
       virtual ~VarExp() {}
 
-      virtual int Evaluate(Context& context) const;
+      virtual pExp Evaluate(Context& context) const;
 
       const std::string& getVarName() const {return mVarName;}
 

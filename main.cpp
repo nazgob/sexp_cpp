@@ -6,7 +6,6 @@
 #include <Exp.hpp>
 #include <Context.hpp>
 #include <Tokenizer.hpp>
-//#include <Lexer.hpp>
 
 #include <Reader.hpp>
 #include <Utils.hpp>
@@ -44,11 +43,6 @@ int main()
 
       // print
       std::cout << exp->Write() << std::endl;
-
-      // eval
-      //sexp_cpp::Lexer lexer;
-      //lexer.LexSubExp(list);
-
     }
     catch(std::exception& e)
     {

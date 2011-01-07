@@ -15,7 +15,7 @@ namespace sexp_cpp
       EmptyListExp() {}
       virtual ~EmptyListExp() {}
 
-      virtual int Evaluate(Context&) const {return 0;} // TODO: return what?
+      virtual pExp Evaluate(Context&) const {return pExp(new EmptyListExp());}
 
       virtual std::string WhoAmI() const {return "EmptyListExp";}
 

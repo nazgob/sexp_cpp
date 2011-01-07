@@ -1,6 +1,6 @@
 #include "Context.hpp"
 #include "VarExp.hpp"
-#include "Operator.hpp"
+//#include "Operator.hpp"
 #include "Utils.hpp"
 
 #include <stdexcept>
@@ -11,7 +11,7 @@ namespace sexp_cpp
 
   Context::Context()
   {
-    mOp.reset(new NullOperator());
+    //mOp.reset(new NullOperator());
   }
 
   Context::~Context() {}
@@ -30,10 +30,10 @@ namespace sexp_cpp
     }
   }
 
-  void Context::Assign(pOp op)
-  {
-    mOp = op;
-  }
+  //void Context::Assign(pOp op)
+  //{
+    //mOp = op;
+  //}
 
   void Context::Assign(pVar exp, int value)
   {

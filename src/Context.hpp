@@ -17,12 +17,12 @@ namespace sexp_cpp
       int Lookup(const std::string& varName) const;
 
       void Assign(pOp op);
-      pOp GetOp() const {return mOp;}
+      //pOp GetOp() const {return mOp;}
 
     protected:
       typedef std::map<std::string, int> ContextType;
       ContextType mContextMap;
-      pOp mOp;
+      //pOp mOp;
   };
 
 } // sexp_cpp

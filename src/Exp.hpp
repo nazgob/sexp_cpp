@@ -2,6 +2,7 @@
 #define EXP_H 
 
 #include <string>
+#include "Utils.hpp"
 
 namespace sexp_cpp
 {
@@ -11,7 +12,7 @@ namespace sexp_cpp
   {
     public:
       virtual ~Exp() {}
-      virtual int Evaluate(Context&) const = 0;
+      virtual pExp Evaluate(Context&) const = 0;
       virtual std::string WhoAmI() const = 0;
       virtual std::string Write() const = 0;
   };

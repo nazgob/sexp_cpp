@@ -15,7 +15,7 @@ namespace sexp_cpp
       BoolExp(bool value) : mValue(value) {}
       virtual ~BoolExp() {}
 
-      virtual int Evaluate(Context&) const {return mValue;} // TODO: return bool?
+      virtual pExp Evaluate(Context&) const {return pExp(new BoolExp(mValue));} //TODO: fix it!
 
       virtual std::string WhoAmI() const {return "BoolExp";}
       

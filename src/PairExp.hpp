@@ -23,7 +23,7 @@ namespace sexp_cpp
       }
       virtual ~PairExp() {}
 
-      virtual int Evaluate(Context&) const {return 0;} // TODO: return what?
+      virtual pExp Evaluate(Context&) const {return pExp(new PairExp(mCar, mCdr));}
 
       virtual std::string WhoAmI() const {return "PairExp";}
 

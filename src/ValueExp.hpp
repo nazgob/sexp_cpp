@@ -16,7 +16,7 @@ namespace sexp_cpp
       ValueExp(int value) : mValue(value) {}
       virtual ~ValueExp() {}
 
-      virtual int Evaluate(Context&) const {return mValue;}
+      virtual pExp Evaluate(Context&) const {return pExp(new ValueExp(mValue));} // TODO: fix it 
 
       virtual std::string WhoAmI() const {return "ValueExp";}
       
