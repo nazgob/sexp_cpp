@@ -46,12 +46,12 @@ namespace
   {
     std::string simpleList("( 1 2 )");
     std::string nestedList = "( 1 ( 2 3 ) )";
-    std::string justList = "( 1 2 3 4 5 )";
+    std::string variadicList = "( 1 2 3 4 5 )";
     std::string emptyList = "()";
 
     EXPECT_TRUE(Recognizer::IsList(DataFactory::GetList(simpleList)));
     EXPECT_TRUE(Recognizer::IsList(DataFactory::GetList(nestedList)));
-    EXPECT_TRUE(Recognizer::IsList(DataFactory::GetList(justList)));
+    EXPECT_TRUE(Recognizer::IsList(DataFactory::GetList(variadicList)));
     EXPECT_FALSE(Recognizer::IsList(DataFactory::GetList(emptyList)));
   }
 

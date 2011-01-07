@@ -3,6 +3,7 @@
 #include <sstream>
 #include <list>
 
+#include <Exp.hpp>
 #include <Context.hpp>
 #include <Tokenizer.hpp>
 //#include <Lexer.hpp>
