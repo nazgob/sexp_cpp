@@ -1,6 +1,7 @@
 #include "Recognizer.hpp"
 
 #include <boost/lexical_cast.hpp>
+#include <cctype>
 
 namespace sexp_cpp
 {
@@ -21,6 +22,15 @@ namespace sexp_cpp
   bool Recognizer::IsBoolean(const std::string& token)
   {
     if(token[0] == '#' && (token[1] == 't' || token[1] == 'f') && token.size() == 2)
+    {
+      return true;
+    }
+
+    return false;
+  }
+  bool Recognizer::IsSymbol(const std::string& token)
+  {
+    if(isalpha(token[0])) // TODO: '*' '/' '>' '<' '=' '?' '!' can are allowed to?
     {
       return true;
     }

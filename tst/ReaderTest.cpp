@@ -40,6 +40,13 @@ namespace
     std::list<std::string> falseList = DataFactory::GetList(sthFalse);
     EXPECT_EQ(reader.Read(falseList)->WhoAmI(), "BoolExp");
   }
+  
+  TEST_F(ReaderTest, ShouldReadSymbols) // TODO: check for other allowed symbol formats
+  {
+    std::string symbol = "foobar";
+    std::list<std::string> symbolList = DataFactory::GetList(symbol);
+    EXPECT_EQ(reader.Read(symbolList)->WhoAmI(), "VarExp");
+  }
 
   TEST_F(ReaderTest, ShouldReadEmptyList)
   {

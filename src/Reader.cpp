@@ -1,8 +1,9 @@
 #include "Reader.hpp"
 
 #include "Recognizer.hpp"
-#include "ValueExp.hpp"
 #include "BoolExp.hpp"
+#include "VarExp.hpp"
+#include "ValueExp.hpp"
 #include "EmptyListExp.hpp"
 #include "PairExp.hpp"
 
@@ -32,6 +33,13 @@ namespace sexp_cpp
       {
         return pBool(new BoolExp(false));
       }
+    }
+
+    // symbols
+    if(Recognizer::IsSymbol(token))
+    {
+      tokens.pop_front();
+      return pVar(new VarExp(token));
     }
 
     // empty lists

@@ -26,7 +26,7 @@ namespace sexp_cpp
     }
     else
     {
-      throw std::runtime_error("undefined variable: " + varName);
+      throw std::runtime_error("context error / undefined variable: " + varName);
     }
   }
 

@@ -33,6 +33,12 @@ namespace
     EXPECT_TRUE(Recognizer::IsBoolean(sthFalse));
   }
 
+  TEST(RecognizerTest, IsSymbol)
+  {
+    std::string symbol = "foobar";
+    EXPECT_TRUE(Recognizer::IsSymbol(symbol));
+  }
+
   TEST(RecognizerTest, IsEmptyList)
   {
     std::string emptyList = "()";

@@ -22,7 +22,7 @@ namespace sexp_cpp
       
       virtual std::string Write() const
       {
-        return "//TODO!!!"; //TODO: implement!
+        return mVarName;
       }
 
     protected:
