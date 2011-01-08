@@ -1,34 +1,28 @@
-#ifndef REPL_H
-#define REPL_H
+#ifndef REPL_HPP
+#define REPL_HPP
 
 #include <iostream>
 #include <string>
 #include <sstream>
 #include <list>
 
-#include <Exp.hpp>
-#include <Context.hpp>
-#include <Tokenizer.hpp>
-
-#include <Reader.hpp>
-#include <Utils.hpp>
+#include "Exp.hpp"
+#include "Context.hpp"
+#include "Tokenizer.hpp"
+#include "Reader.hpp"
+#include "Utils.hpp"
 
 namespace sexp_cpp
 {
   Context context;
 
-  pExp read()
+  pExp read(std::stringstream& ss)
   {
     pExp exp;
     try
     {
-      std::cout << "sexp> "
-      std::string input = "";
-      getline(std::cin, input);
-      std::stringstream instream(input);
-
       Tokenizer tokenizer;
-      std::list<std::string> tokens = tokenizer.Tokenize(instream.str());
+      std::list<std::string> tokens = tokenizer.Tokenize(ss.str());
 
       Reader reader;
       exp = reader.Read(tokens);
@@ -56,19 +50,20 @@ namespace sexp_cpp
     }
   }
 
-  void print(pExp exp)
+  std::string print(pExp exp)
   {
     try
     {
-      std::cout << exp->Write() << std::endl;
+      return exp->Write();
     }
     catch(std::exception& e)
     {
-      std::cout << "print crashed => " << e.what() << std::endl; 
+      std::cout << "print crashed => " << e.what() << std::endl;
+      return "print crashed...";
     }
   }
 
 } // sexp_cpp
 
-#endif // REPL_H
+#endif // REPL_HPP
 
