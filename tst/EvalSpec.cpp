@@ -10,6 +10,24 @@ using namespace sexp_cpp;
 
 namespace
 {
+  TEST(EvalSpec, PositiveIntegerExp)
+  {
+    std::stringstream code("123");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "ValueExp");
+    EXPECT_EQ("123", print(exp));
+  }
+  
+  TEST(EvalSpec, NegativeIntegerExp)
+  {
+    std::stringstream code("-456");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "ValueExp");
+    EXPECT_EQ("-456", print(exp));
+  }
+
   TEST(EvalSpec, EmptyListExp)
   {
     std::stringstream code("()");
