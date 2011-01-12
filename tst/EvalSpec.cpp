@@ -27,6 +27,24 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "ValueExp");
     EXPECT_EQ("-456", print(exp));
   }
+  
+  TEST(EvalSpec, TrueBooleanExp)
+  {
+    std::stringstream code("#t");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "BoolExp");
+    EXPECT_EQ("#t", print(exp));
+  }
+
+  TEST(EvalSpec, FalseBooleanExp)
+  {
+    std::stringstream code("#f");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "BoolExp");
+    EXPECT_EQ("#f", print(exp));
+  }
 
   TEST(EvalSpec, EmptyListExp)
   {
