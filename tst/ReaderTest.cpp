@@ -23,11 +23,11 @@ namespace
   {
     std::string positive = "123";
     std::list<std::string> positiveList = DataFactory::GetList(positive);
-    EXPECT_EQ(reader.Read(positiveList)->WhoAmI(), "ValueExp");
+    EXPECT_EQ(reader.Read(positiveList)->WhoAmI(), "ValExp");
 
     std::string negative = "-123";
     std::list<std::string> negativeList = DataFactory::GetList(negative);
-    EXPECT_EQ(reader.Read(negativeList)->WhoAmI(), "ValueExp");
+    EXPECT_EQ(reader.Read(negativeList)->WhoAmI(), "ValExp");
   }
 
   TEST_F(ReaderTest, ShouldReadBoolean)

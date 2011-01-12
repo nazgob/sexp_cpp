@@ -3,7 +3,7 @@
 #include "Recognizer.hpp"
 #include "BoolExp.hpp"
 #include "VarExp.hpp"
-#include "ValueExp.hpp"
+#include "ValExp.hpp"
 #include "EmptyListExp.hpp"
 #include "PairExp.hpp"
 
@@ -18,7 +18,7 @@ namespace sexp_cpp
     if(Recognizer::IsInteger(token))
     {
       tokens.pop_front();
-      return pVal(new ValueExp(boost::lexical_cast<int>(token))); // TODO: handle errors
+      return pVal(new ValExp(boost::lexical_cast<int>(token))); // TODO: handle errors
     }
 
     // booleans

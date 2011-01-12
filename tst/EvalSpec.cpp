@@ -17,7 +17,7 @@ namespace
     std::stringstream code("123");
 
     pExp exp = eval(read(code));
-    EXPECT_EQ(exp->WhoAmI(), "ValueExp");
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("123", print(exp));
   }
   
@@ -26,7 +26,7 @@ namespace
     std::stringstream code("-456");
 
     pExp exp = eval(read(code));
-    EXPECT_EQ(exp->WhoAmI(), "ValueExp");
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("-456", print(exp));
   }
   
@@ -55,7 +55,7 @@ namespace
     context.Assign(foobar, 42);
 
     pExp exp = eval(read(code));
-    EXPECT_EQ(exp->WhoAmI(), "ValueExp");
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("42", print(exp));
   }
 
