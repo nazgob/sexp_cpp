@@ -70,12 +70,17 @@ namespace
 
   TEST(EvalSpec, PairExp)
   {
-    std::stringstream code("( 1 2 )");
+    std::stringstream code("(1 2)");
+    pExp exp = eval(read(code));
 
-    pExp exp = read(code);
     EXPECT_EQ(exp->WhoAmI(), "PairExp");
-
-    exp = eval(exp);
+    EXPECT_EQ("(1 2)", print(exp));
+  }
+  
+  TEST(EvalSpec, PairExpWithExtraSpaces)
+  {
+    std::stringstream code(" ( 1  2 ) ");
+    pExp exp = eval(read(code));
 
     EXPECT_EQ(exp->WhoAmI(), "PairExp");
     EXPECT_EQ("(1 2)", print(exp));
@@ -83,7 +88,7 @@ namespace
   
   TEST(EvalSpec, NestedPairExp)
   {
-    std::stringstream code("( 1 2 3 4 5 )");
+    std::stringstream code("(1 2 3 4 5)");
     pExp exp = eval(read(code));
 
     EXPECT_EQ(exp->WhoAmI(), "PairExp");

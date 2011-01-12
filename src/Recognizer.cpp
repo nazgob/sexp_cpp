@@ -38,9 +38,9 @@ namespace sexp_cpp
     return false;
   }
 
-  bool Recognizer::IsEmptyList(const std::string& token)
+  bool Recognizer::IsEmptyList(const std::list<std::string>& tokens)
   {
-    if(token[0] == '(' && token[1] == ')' && token.size() == 2)
+    if(tokens.size() == 2 && tokens.front() == "(" && tokens.back() == ")") // 2 brackets
     {
       return true;
     }
@@ -50,7 +50,7 @@ namespace sexp_cpp
 
   bool Recognizer::IsList(const std::list<std::string>& tokens)
   {
-    if(tokens.front() == "(" && tokens.back() == ")" && tokens.size() >= 4) // 2 brackets + 2 args
+    if(tokens.size() >= 4 && tokens.front() == "(" && tokens.back() == ")") // 2 brackets + 2 args
     {
       return true;
     }

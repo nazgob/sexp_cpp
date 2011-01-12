@@ -16,7 +16,7 @@ namespace sexp_cpp
 
       static bool IsSymbol(const std::string& token);
 
-      static bool IsEmptyList(const std::string& token);
+      static bool IsEmptyList(const std::list<std::string>& tokens);
 
       static bool IsList(const std::list<std::string>& tokens);
 

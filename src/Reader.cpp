@@ -43,9 +43,11 @@ namespace sexp_cpp
     }
 
     // empty lists
-    if(Recognizer::IsEmptyList(token))
+    if(Recognizer::IsEmptyList(tokens))
     {
+      assert(tokens.front() == "(");
       tokens.pop_front();
+
       return pEList(new EmptyListExp());
     }
 

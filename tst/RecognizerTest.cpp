@@ -44,8 +44,8 @@ namespace
     std::string emptyList = "()";
     std::string notEmptyList = "(2 2)";
 
-    EXPECT_TRUE(Recognizer::IsEmptyList(emptyList));
-    EXPECT_FALSE(Recognizer::IsEmptyList(notEmptyList));
+    EXPECT_TRUE(Recognizer::IsEmptyList(DataFactory::GetList(emptyList)));
+    EXPECT_FALSE(Recognizer::IsEmptyList(DataFactory::GetList(notEmptyList)));
   }
 
   TEST(RecognizerTest, IsList)
