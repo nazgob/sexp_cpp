@@ -21,7 +21,7 @@ namespace sexp_cpp
 
       virtual std::string Write() const
       {
-        return "()";
+        return "";
       }
   };
 

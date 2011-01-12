@@ -27,15 +27,23 @@ namespace sexp_cpp
 
       virtual std::string WhoAmI() const {return "PairExp";}
 
-      virtual std::string Write() const // TODO: think it over, we're printing too many ()...
+      virtual std::string Write() const
       {
-
         std::stringstream ss;
-        ss << "( "
-           << Car()->Write()
-           << " "
-           << Cdr()->Write()
-           << " )";
+        std::string car = Car()->Write();
+        std::string cdr = Cdr()->Write();
+
+        if(cdr.empty())
+        {
+          ss << car;
+        }
+        else
+        {
+          ss << car 
+            << " "
+            << cdr;
+        }
+
         return ss.str();
       }
 

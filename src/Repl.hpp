@@ -54,6 +54,13 @@ namespace sexp_cpp
   {
     try
     {
+      if(exp->WhoAmI() == "PairExp")
+      {
+        std::stringstream ss;
+        ss << "(" << exp->Write() << ")";
+        return ss.str();
+      }
+
       return exp->Write();
     }
     catch(std::exception& e)
