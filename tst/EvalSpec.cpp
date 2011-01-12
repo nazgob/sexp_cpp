@@ -2,6 +2,8 @@
 
 #include "../src/Repl.hpp"
 #include "../src/Exp.hpp"
+#include "../src/Context.hpp"
+#include "../src/VarExp.hpp"
 
 #include <sstream>
 #include <string>
@@ -44,6 +46,17 @@ namespace
     pExp exp = eval(read(code));
     EXPECT_EQ(exp->WhoAmI(), "BoolExp");
     EXPECT_EQ("#f", print(exp));
+  }
+  
+  TEST(EvalSpec, SymbolExp) // TODO: fix naming
+  {
+    std::stringstream code("foobar");
+    pVar foobar(new VarExp("foobar"));
+    context.Assign(foobar, 42);
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "ValueExp");
+    EXPECT_EQ("42", print(exp));
   }
 
   TEST(EvalSpec, EmptyListExp)
