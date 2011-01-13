@@ -23,29 +23,11 @@ namespace sexp_cpp
       }
       virtual ~PairExp() {}
 
-      virtual pExp Evaluate(Context&) const {return pExp(new PairExp(mCar, mCdr));}
+      virtual pExp Evaluate(Context&) const;
 
       virtual std::string WhoAmI() const {return "PairExp";}
 
-      virtual std::string Write() const
-      {
-        std::stringstream ss;
-        std::string car = Car()->Write();
-        std::string cdr = Cdr()->Write();
-
-        if(cdr.empty())
-        {
-          ss << car;
-        }
-        else
-        {
-          ss << car 
-            << " "
-            << cdr;
-        }
-
-        return ss.str();
-      }
+      virtual std::string Write() const;
 
       pExp Car() const {return mCar;}
       pExp Cdr() const {return mCdr;}
@@ -56,16 +38,15 @@ namespace sexp_cpp
   };
  
   // TODO: find a proper place for this stuff 
-   
-  pExp Car(pPair pair)
-  {
-    return pair->Car();
-  }
+  //pExp Car(pPair pair)
+  //{
+    //return pair->Car();
+  //}
   
-  pExp Cdr(pPair pair)
-  {
-    return pair->Cdr();
-  }
+  //pExp Cdr(pPair pair)
+  //{
+    //return pair->Cdr();
+  //}
 
 } // sexp_cpp
 
