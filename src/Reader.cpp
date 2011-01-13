@@ -6,6 +6,7 @@
 #include "ValExp.hpp"
 #include "EmptyListExp.hpp"
 #include "PairExp.hpp"
+#include "NullExp.hpp"
 
 namespace sexp_cpp
 {
@@ -60,8 +61,7 @@ namespace sexp_cpp
       return ReadList(tokens);
     }
 
-    pExp NullExp;
-    return NullExp;
+    return pNull(new NullExp());
   }
 
   pExp Reader::ReadList(std::list<std::string>& tokens)

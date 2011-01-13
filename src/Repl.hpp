@@ -23,10 +23,8 @@ namespace sexp_cpp
     {
       Tokenizer tokenizer;
       std::list<std::string> tokens = tokenizer.Tokenize(ss.str());
-      assert(tokens.empty() == false);
       Reader reader;
       exp = reader.Read(tokens);
-      assert(NULL != exp.get()); // TODO: get rid of this hack!
 
       return exp;
     }
