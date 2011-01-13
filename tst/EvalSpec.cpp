@@ -96,23 +96,40 @@ namespace
     EXPECT_EQ("(1 2 3 4 5)", print(exp));
   }
 
-  //TEST(EvalSpec, QuoteExp)
-  //{
-    //std::stringstream code("(quote foo)");
+  TEST(EvalSpec, QuoteList)
+  {
+    std::stringstream code("(quote (1 2 3))");
 
-    //pExp exp = eval(read(code));
-    //EXPECT_EQ(exp->WhoAmI(), "PairExp");
-    //EXPECT_EQ("foo", print(exp));
-  //}
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "PairExp");
+    EXPECT_EQ("(1 2 3)", print(exp));
+  }
   
-  //TEST(EvalSpec, SingleQuote)
-  //{
-    //std::stringstream code("'foo");
+  TEST(EvalSpec, SingleQuoteList)
+  {
+    std::stringstream code("'(1 2 3)");
 
-    //pExp exp = eval(read(code));
-    //EXPECT_EQ(exp->WhoAmI(), "PairExp");
-    //EXPECT_EQ("foo", print(exp));
-  //}
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "PairExp");
+    EXPECT_EQ("(1 2 3)", print(exp));
+  }
 
+  TEST(EvalSpec, QuoteInteger)
+  {
+    std::stringstream code("(quote 1)");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
+    EXPECT_EQ("1", print(exp));
+  }
+
+  TEST(EvalSpec, SingleQuoteInteger)
+  {
+    std::stringstream code("'42");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
+    EXPECT_EQ("42", print(exp));
+  }
 }
 

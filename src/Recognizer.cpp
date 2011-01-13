@@ -2,6 +2,7 @@
 
 #include <boost/lexical_cast.hpp>
 #include <cctype>
+#include <cassert>
 
 namespace sexp_cpp
 {
@@ -58,15 +59,29 @@ namespace sexp_cpp
     return false;
   }
 
-  bool Recognizer::IsQuoted(const std::string& token)
+  bool Recognizer::IsSingleQuoted(const std::list<std::string>& tokens)
   {
-    if(token == "quote" || token[0] == '\'') // TODO: quote has shortcut '
+    if(tokens.front() == "'")
     {
       return true;
     }
 
     return false;
   }
-  
+
+  bool Recognizer::IsQuotedList(const std::list<std::string>& tokens)
+  {
+    if(IsList(tokens))
+    {
+      std::list<std::string>::const_iterator it = tokens.begin();
+      assert(*it == "("); it++;
+      if(*it == "quote")
+      {
+        return true;
+      }
+    }
+    return false;
+  }
+
 } // sexp_cpp
 

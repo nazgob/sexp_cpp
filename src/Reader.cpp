@@ -47,15 +47,43 @@ namespace sexp_cpp
     if(Recognizer::IsEmptyList(tokens))
     {
       assert(tokens.front() == "(");
+      assert(tokens.back() == ")");
       tokens.pop_front();
 
       return pEList(new EmptyListExp());
+    }
+
+    // single quote
+    if(Recognizer::IsSingleQuoted(tokens))
+    {
+      assert(tokens.front() == "'");
+      tokens.pop_front(); // drop '
+      tokens.push_front("quote");
+      tokens.push_front("(");
+      tokens.push_back(")");
+
+      return Read(tokens);
+    }
+
+    // quoted list
+    if(Recognizer::IsQuotedList(tokens))
+    {
+      assert(tokens.front() == "(");
+      assert(tokens.back() == ")");
+      tokens.pop_front();
+
+      assert(tokens.front() == "quote");
+      tokens.pop_front();
+
+      pExp cdr(Read(tokens));
+      return cdr;
     }
 
     // lists
     if(Recognizer::IsList(tokens))
     {
       assert(tokens.front() == "(");
+      assert(tokens.back() == ")");
       tokens.pop_front();
 
       return ReadList(tokens);

@@ -20,7 +20,9 @@ namespace sexp_cpp
 
       static bool IsList(const std::list<std::string>& tokens);
 
-      static bool IsQuoted(const std::string& token);
+      static bool IsSingleQuoted(const std::list<std::string>& tokens);
+
+      static bool IsQuotedList(const std::list<std::string>& tokens);
   };
 
 } // sexp_cpp

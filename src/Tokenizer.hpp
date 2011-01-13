@@ -22,7 +22,7 @@ namespace sexp_cpp
 
         typedef boost::tokenizer<boost::char_separator<char> > tokenizer;
         std::string dropped_delimiters = " "; // space
-        std::string kept_delimiters = "()";
+        std::string kept_delimiters = "()'";
         boost::char_separator<char> separators(dropped_delimiters.c_str(), kept_delimiters.c_str());
         tokenizer tokens(code, separators);
 

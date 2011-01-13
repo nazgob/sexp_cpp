@@ -69,6 +69,20 @@ namespace
     std::list<std::string> variadicList = DataFactory::GetList(variadic);
     EXPECT_EQ(reader.Read(variadicList)->WhoAmI(), "PairExp");
   }
+  
+  TEST_F(ReaderTest, ShouldReadQuotedList)
+  {
+    std::string empty = "(quote (1 2 3))";
+    std::list<std::string> emptyList = DataFactory::GetList(empty);
+    EXPECT_EQ(reader.Read(emptyList)->WhoAmI(), "PairExp");
+  }
+  
+  TEST_F(ReaderTest, ShouldReadSingleQuotedInteger)
+  {
+    std::string empty = "'42";
+    std::list<std::string> emptyList = DataFactory::GetList(empty);
+    EXPECT_EQ(reader.Read(emptyList)->WhoAmI(), "ValExp");
+  }
 
 }
 

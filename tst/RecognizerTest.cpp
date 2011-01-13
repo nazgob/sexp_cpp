@@ -61,16 +61,25 @@ namespace
     EXPECT_FALSE(Recognizer::IsList(DataFactory::GetList(emptyList)));
   }
   
-  TEST(RecognizerTest, IsQuoted)
+  TEST(RecognizerTest, IsSingleQuoted)
   {
     std::string quotedSymbol = "'a";
-    EXPECT_TRUE(Recognizer::IsQuoted(quotedSymbol));
+    EXPECT_TRUE(Recognizer::IsSingleQuoted(DataFactory::GetList(quotedSymbol)));
 
     std::string quotedTruth = "'#t";
-    EXPECT_TRUE(Recognizer::IsQuoted(quotedTruth));
+    EXPECT_TRUE(Recognizer::IsSingleQuoted(DataFactory::GetList(quotedTruth)));
     
     std::string quotedInteger = "'123";
-    EXPECT_TRUE(Recognizer::IsQuoted(quotedInteger));
+    EXPECT_TRUE(Recognizer::IsSingleQuoted(DataFactory::GetList(quotedInteger)));
+  }
+  
+  TEST(RecognizerTest, IsQuotedList)
+  {
+    std::string singleQuotedList = "'(1 2 3)";
+    EXPECT_TRUE(Recognizer::IsSingleQuoted(DataFactory::GetList(singleQuotedList)));
+    
+    std::string quotedList = "(quote (1 2 3))";
+    EXPECT_TRUE(Recognizer::IsQuotedList(DataFactory::GetList(quotedList)));
   }
 
 }
