@@ -1,5 +1,4 @@
 #include <gtest/gtest.h>
-#include "../src/VarExp.hpp"
 #include "../src/Context.hpp"
 
 using namespace sexp_cpp;
@@ -8,17 +7,41 @@ using namespace sexp_cpp;
 
 namespace
 {
-  TEST(ContextTest, LookupPositive)
+  TEST(ContextTest, DefineAndLookup)
   {
     Context context;
-    pVar varFoo(new VarExp("foo"));
-    pVar varBar(new VarExp("bar"));
-
-    context.Assign(varFoo, 1);
-    context.Assign(varBar, 2);
+    context.Define("foo", 1);
+    context.Define("bar", 2);
 
     EXPECT_EQ(1, context.Lookup("foo"));
     EXPECT_EQ(2, context.Lookup("bar"));
+  }
+
+  TEST(ContextTest, DoubleDefineIsOK)
+  {
+    Context context;
+    context.Define("foo", 42);
+    context.Define("foo", 42);
+
+    EXPECT_EQ(42, context.Lookup("foo"));
+  }
+
+  TEST(ContextTest, SetPositive)
+  {
+    Context context;
+
+    context.Define("foo", 0);
+    EXPECT_EQ(0, context.Lookup("foo"));
+
+    context.Set("foo", 43);
+    EXPECT_EQ(43, context.Lookup("foo"));
+  }
+
+  TEST(ContextTest, SetNegative)
+  {
+    Context context;
+
+    EXPECT_THROW(context.Set("foo", 42), std::logic_error);
   }
 
   TEST(ContextTest, LookupOnEmpty)
@@ -27,19 +50,5 @@ namespace
     EXPECT_THROW(context.Lookup("foobar"), std::runtime_error);
   }
 
-  //TEST(ContextTest, GetDefaultOperator)
-  //{
-    //Context context;
-    //pOp op(context.GetOp());
-    //EXPECT_EQ("NullOperator", op->WhoAmI());
-  //}
-  
-  //TEST(ContextTest, SetAndGetOperator)
-  //{
-    //Context context;
-    //pOp op(new AddOperator());
-    //context.Assign(op);
-    //EXPECT_EQ("AddOperator", op->WhoAmI());
-  //}
 } 
 

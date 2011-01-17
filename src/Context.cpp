@@ -1,6 +1,5 @@
 #include "Context.hpp"
 #include "VarExp.hpp"
-//#include "Operator.hpp"
 #include "Utils.hpp"
 
 #include <stdexcept>
@@ -9,12 +8,22 @@
 namespace sexp_cpp
 {
 
-  Context::Context()
+  void Context::Define(const std::string& varName, int value)
   {
-    //mOp.reset(new NullOperator());
+    mContextMap[varName] = value;
   }
 
-  Context::~Context() {}
+  void Context::Set(const std::string& varName, int value)
+  {
+    if(mContextMap.find(varName) != mContextMap.end())
+    {
+      mContextMap[varName] = value;
+    }
+    else
+    {
+      throw std::logic_error("context error / undefined variable set: " + varName);
+    }
+  }
 
   int Context::Lookup(const std::string& varName) const
   {
@@ -26,18 +35,8 @@ namespace sexp_cpp
     }
     else
     {
-      throw std::runtime_error("context error / undefined variable: " + varName);
+      throw std::runtime_error("context error / undefined variable lookup: " + varName);
     }
-  }
-
-  //void Context::Assign(pOp op)
-  //{
-    //mOp = op;
-  //}
-
-  void Context::Assign(pVar exp, int value)
-  {
-    mContextMap[exp->getVarName()] = value;
   }
 
 } // sexp_cpp

@@ -52,8 +52,7 @@ namespace
   {
     std::stringstream code("foobar");
 
-    pVar foobar(new VarExp("foobar"));
-    context.Assign(foobar, 42);
+    context.Define("foobar", 42);
 
     pExp exp = eval(read(code));
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
