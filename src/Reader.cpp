@@ -2,7 +2,7 @@
 
 #include "Recognizer.hpp"
 #include "BoolExp.hpp"
-#include "VarExp.hpp"
+#include "SymbolExp.hpp"
 #include "ValExp.hpp"
 #include "EmptyListExp.hpp"
 #include "PairExp.hpp"
@@ -40,7 +40,7 @@ namespace sexp_cpp
     if(Recognizer::IsSymbol(token))
     {
       tokens.pop_front();
-      return pVar(new VarExp(token));
+      return pSymbol(new SymbolExp(token));
     }
 
     // empty lists

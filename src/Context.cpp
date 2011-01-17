@@ -1,5 +1,4 @@
 #include "Context.hpp"
-#include "VarExp.hpp"
 #include "Utils.hpp"
 
 #include <stdexcept>
@@ -8,16 +7,16 @@
 namespace sexp_cpp
 {
 
-  void Context::Define(const std::string& varName, int value)
+  void Context::Define(const std::string& varName, pExp exp)
   {
-    mContextMap[varName] = value;
+    mContextMap[varName] = exp;
   }
 
-  void Context::Set(const std::string& varName, int value)
+  void Context::Set(const std::string& varName, pExp exp)
   {
     if(mContextMap.find(varName) != mContextMap.end())
     {
-      mContextMap[varName] = value;
+      mContextMap[varName] = exp;
     }
     else
     {
@@ -25,9 +24,9 @@ namespace sexp_cpp
     }
   }
 
-  int Context::Lookup(const std::string& varName) const
+  pExp Context::Lookup(const std::string& varName) const
   {
-    ContextType::const_iterator it = mContextMap.find(varName);
+    ContextType::const_iterator it = mContextMap.find(varName); // TODO: fix...
 
     if(it != mContextMap.end())
     {

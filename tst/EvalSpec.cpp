@@ -3,7 +3,8 @@
 #include "../src/Repl.hpp"
 #include "../src/Exp.hpp"
 #include "../src/Context.hpp"
-#include "../src/VarExp.hpp"
+#include "../src/SymbolExp.hpp"
+#include "../src/ValExp.hpp"
 
 #include <sstream>
 #include <string>
@@ -52,7 +53,8 @@ namespace
   {
     std::stringstream code("foobar");
 
-    context.Define("foobar", 42);
+    pExp foobar(new ValExp(42));
+    context.Define("foobar", foobar);
 
     pExp exp = eval(read(code));
     EXPECT_EQ(exp->WhoAmI(), "ValExp");

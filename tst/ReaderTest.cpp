@@ -45,7 +45,7 @@ namespace
   {
     std::string symbol = "foobar";
     std::list<std::string> symbolList = DataFactory::GetList(symbol);
-    EXPECT_EQ(reader.Read(symbolList)->WhoAmI(), "VarExp");
+    EXPECT_EQ(reader.Read(symbolList)->WhoAmI(), "SymbolExp");
   }
 
   TEST_F(ReaderTest, ShouldReadEmptyList)
