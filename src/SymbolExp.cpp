@@ -6,7 +6,7 @@ namespace sexp_cpp
 
   pExp SymbolExp::Evaluate(Context& context) const
   {
-    return context.Lookup(mSymbolName);
+    return context.Lookup(mName);
   }
 
 } // sexp_cpp

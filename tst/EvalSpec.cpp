@@ -49,12 +49,13 @@ namespace
     EXPECT_EQ("#f", print(exp));
   }
   
-  TEST(EvalSpec, SymbolExp) // TODO: fix naming
+  TEST(EvalSpec, SymbolExp)
   {
     std::stringstream code("foobar");
 
-    pExp foobar(new ValExp(42));
-    context.Define("foobar", foobar);
+    pVal foobarVal(new ValExp(42));
+    pSymbol foobarSymbol(new SymbolExp("foobar"));
+    context.Define(foobarSymbol, foobarVal);
 
     pExp exp = eval(read(code));
     EXPECT_EQ(exp->WhoAmI(), "ValExp");

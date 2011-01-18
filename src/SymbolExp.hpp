@@ -11,22 +11,22 @@ namespace sexp_cpp
   class SymbolExp : public Exp
   {
     public:
-      SymbolExp(const std::string& symbolName) : mSymbolName(symbolName) {}
+      SymbolExp(const std::string& name) : mName(name) {}
       virtual ~SymbolExp() {}
 
       virtual pExp Evaluate(Context& context) const;
 
-      //const std::string& getSymbolName() const {return mSymbolName;}
+      const std::string& GetName() const {return mName;}
 
       virtual std::string WhoAmI() const {return "SymbolExp";}
       
       virtual std::string Write() const
       {
-        return mSymbolName;
+        return mName;
       }
 
     protected:
-      std::string mSymbolName;
+      std::string mName;
   };
 
 } // sexp_cpp
