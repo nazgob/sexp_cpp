@@ -65,20 +65,6 @@ namespace sexp_cpp
       return Read(tokens);
     }
 
-    // quoted list
-    if(Recognizer::IsQuotedList(tokens))
-    {
-      assert(tokens.front() == "(");
-      assert(tokens.back() == ")");
-      tokens.pop_front();
-
-      assert(tokens.front() == "quote");
-      tokens.pop_front();
-
-      pExp cdr(Read(tokens));
-      return cdr;
-    }
-
     // lists
     if(Recognizer::IsList(tokens))
     {

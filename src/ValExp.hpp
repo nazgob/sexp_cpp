@@ -5,6 +5,7 @@
 #include "Utils.hpp"
 
 #include <string>
+#include <stdexcept>
 #include <boost/lexical_cast.hpp>
 
 namespace sexp_cpp
@@ -27,6 +28,9 @@ namespace sexp_cpp
       {
         return boost::lexical_cast<std::string>(mVal);
       }
+      
+      virtual pExp Car() const {throw std::logic_error("ValExp::Car() called!");}
+      virtual pExp Cdr() const {throw std::logic_error("ValExp::Cdr() called!");}
 
     protected:
       int mVal;

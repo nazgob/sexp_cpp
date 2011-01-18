@@ -31,24 +31,13 @@ namespace sexp_cpp
 
       virtual std::string Write() const;
 
-      pExp Car() const {return mCar;}
-      pExp Cdr() const {return mCdr;}
+      virtual pExp Car() const {return mCar;}
+      virtual pExp Cdr() const {return mCdr;}
 
     protected:
       pExp mCar;
       pExp mCdr;
   };
- 
-  // TODO: find a proper place for this stuff 
-  //pExp Car(pPair pair)
-  //{
-    //return pair->Car();
-  //}
-  
-  //pExp Cdr(pPair pair)
-  //{
-    //return pair->Cdr();
-  //}
 
 } // sexp_cpp
 

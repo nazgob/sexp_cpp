@@ -15,6 +15,9 @@ namespace sexp_cpp
       virtual pExp Evaluate(Context&) const = 0;
       virtual std::string WhoAmI() const = 0;
       virtual std::string Write() const = 0;
+      
+      virtual pExp Car() const = 0;
+      virtual pExp Cdr() const = 0;
   };
 
 } // sexp_cpp

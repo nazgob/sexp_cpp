@@ -5,6 +5,7 @@
 #include "Utils.hpp"
 
 #include <string>
+#include <stdexcept>
 
 namespace sexp_cpp
 {
@@ -26,6 +27,9 @@ namespace sexp_cpp
       {
         return "";
       }
+      
+      virtual pExp Car() const {throw std::logic_error("EmptyListExp::Car() called!");}
+      virtual pExp Cdr() const {throw std::logic_error("EmptyListExp::Cdr() called!");}
   };
 
 } // sexp_cpp

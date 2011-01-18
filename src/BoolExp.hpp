@@ -5,6 +5,7 @@
 #include "Utils.hpp"
 
 #include <string>
+#include <stdexcept>
 
 namespace sexp_cpp
 {
@@ -26,6 +27,9 @@ namespace sexp_cpp
       {
         return mValue ? "#t" : "#f";
       }
+      
+      virtual pExp Car() const {throw std::logic_error("BoolExp::Car() called!");}
+      virtual pExp Cdr() const {throw std::logic_error("BoolExp::Cdr() called!");}
 
     protected:
       bool mValue; 

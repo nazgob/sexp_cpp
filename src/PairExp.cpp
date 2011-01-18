@@ -5,7 +5,12 @@ namespace sexp_cpp
 
   pExp PairExp::Evaluate(Context&) const
   {
-    return pExp(new PairExp(mCar, mCdr));
+    if(mCar->Write() == "quote") // is_quoted
+    {
+      return mCdr->Car();
+    }
+
+    return Create(mCar, mCdr);
   }
 
   std::string PairExp::Write() const

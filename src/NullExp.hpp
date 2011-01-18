@@ -10,6 +10,7 @@
 namespace sexp_cpp
 {
   class Context;
+  class Exp;
 
   class NullExp : public Exp 
   {
@@ -27,6 +28,9 @@ namespace sexp_cpp
       {
         return "NULL";
       }
+      
+      virtual pExp Car() const {throw std::logic_error("NullExp::Car() called!");}
+      virtual pExp Cdr() const {throw std::logic_error("NullExp::Cdr() called!");}
   };
 
 } // sexp_cpp

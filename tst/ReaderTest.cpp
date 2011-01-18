@@ -81,7 +81,7 @@ namespace
   {
     std::string empty = "'42";
     std::list<std::string> emptyList = DataFactory::GetList(empty);
-    EXPECT_EQ(reader.Read(emptyList)->WhoAmI(), "ValExp");
+    EXPECT_EQ(reader.Read(emptyList)->WhoAmI(), "PairExp");
   }
 
 }
