@@ -2,6 +2,7 @@
 #define VAL_EXP_H 
 
 #include "Exp.hpp"
+#include "Utils.hpp"
 
 #include <string>
 #include <boost/lexical_cast.hpp>
@@ -15,8 +16,10 @@ namespace sexp_cpp
     public:
       ValExp(int value) : mVal(value) {}
       virtual ~ValExp() {}
+      
+      static pExp Create(int value) { return pExp(new ValExp(value));}
 
-      virtual pExp Evaluate(Context&) const {return pExp(new ValExp(mVal));} // TODO: fix it 
+      virtual pExp Evaluate(Context&) const {return Create(mVal);} 
 
       virtual std::string WhoAmI() const {return "ValExp";}
       

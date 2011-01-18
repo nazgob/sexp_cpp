@@ -52,10 +52,7 @@ namespace
   TEST(EvalSpec, SymbolExp)
   {
     std::stringstream code("foobar");
-
-    pVal foobarVal(new ValExp(42));
-    pSymbol foobarSymbol(new SymbolExp("foobar"));
-    context.Define(foobarSymbol, foobarVal);
+    context.Define(SymbolExp::Create("foobar"), ValExp::Create(42));
 
     pExp exp = eval(read(code));
     EXPECT_EQ(exp->WhoAmI(), "ValExp");

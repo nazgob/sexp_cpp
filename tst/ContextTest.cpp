@@ -14,10 +14,8 @@ namespace
   TEST(ContextTest, DefineAndLookup)
   {
     Context context;
-    pSymbol statusSymbol(new SymbolExp("status"));
-    pExp statusVal(new BoolExp(true));
-    
-    context.Define(statusSymbol, statusVal);
+    context.Define(SymbolExp::Create("status"),
+                   BoolExp::Create(true));
 
     pExp tmp = context.Lookup("status")->Evaluate(context);
     EXPECT_EQ("#t", tmp->Write());
@@ -27,16 +25,14 @@ namespace
   TEST(ContextTest, DoubleDefineIsOK)
   {
     Context context;
-    pSymbol symbol(new SymbolExp("foo"));
+    pSymbol symbol = SymbolExp::Create("foo");
     
-    pExp foo1(new ValExp(42));
-    context.Define(symbol, foo1);
+    context.Define(symbol, ValExp::Create(42));
     pExp tmp1 = context.Lookup("foo")->Evaluate(context);
     EXPECT_EQ("42", tmp1->Write());
     EXPECT_EQ("ValExp", tmp1->WhoAmI());
     
-    pExp foo2(new ValExp(123));
-    context.Define(symbol, foo2);
+    context.Define(symbol, ValExp::Create(123));
     pExp tmp2 = context.Lookup(symbol)->Evaluate(context);
     EXPECT_EQ("123", tmp2->Write());
     EXPECT_EQ("ValExp", tmp2->WhoAmI());
@@ -45,16 +41,14 @@ namespace
   TEST(ContextTest, SetPositive)
   {
     Context context;
-    pSymbol symbol(new SymbolExp("foo"));
+    pSymbol symbol = SymbolExp::Create("foo");
     
-    pExp foo1(new ValExp(42));
-    context.Define(symbol, foo1);
+    context.Define(symbol, ValExp::Create(42));
     pExp tmp1 = context.Lookup(symbol)->Evaluate(context);
     EXPECT_EQ("42", tmp1->Write());
     EXPECT_EQ("ValExp", tmp1->WhoAmI());
     
-    pExp foo2(new ValExp(123));
-    context.Set(symbol, foo2);
+    context.Set(symbol, ValExp::Create(123));
     pExp tmp2 = context.Lookup(symbol)->Evaluate(context);
     EXPECT_EQ("123", tmp2->Write());
     EXPECT_EQ("ValExp", tmp2->WhoAmI());
@@ -63,11 +57,7 @@ namespace
   TEST(ContextTest, SetNegative)
   {
     Context context;
-    
-    pSymbol symbol(new SymbolExp("foo"));
-    pExp null(new NullExp());
-
-    EXPECT_THROW(context.Set(symbol, null), std::logic_error);
+    EXPECT_THROW(context.Set(SymbolExp::Create("foo"), NullExp::Create()), std::logic_error);
   }
 
   TEST(ContextTest, LookupOnEmpty)

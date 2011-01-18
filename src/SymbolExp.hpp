@@ -2,6 +2,7 @@
 #define SYMBOL_EXP_H
 
 #include "Exp.hpp"
+#include "Utils.hpp"
 #include <string>
 
 namespace sexp_cpp
@@ -13,6 +14,8 @@ namespace sexp_cpp
     public:
       SymbolExp(const std::string& name) : mName(name) {}
       virtual ~SymbolExp() {}
+
+      static pSymbol Create(const std::string& name) { return pSymbol(new SymbolExp(name));}
 
       virtual pExp Evaluate(Context& context) const;
 

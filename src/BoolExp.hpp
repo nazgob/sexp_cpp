@@ -2,6 +2,7 @@
 #define BOOL_EXP_H 
 
 #include "Exp.hpp"
+#include "Utils.hpp"
 
 #include <string>
 
@@ -14,8 +15,10 @@ namespace sexp_cpp
     public:
       BoolExp(bool value) : mValue(value) {}
       virtual ~BoolExp() {}
+      
+      static pExp Create(bool value) { return pExp(new BoolExp(value));}
 
-      virtual pExp Evaluate(Context&) const {return pExp(new BoolExp(mValue));} //TODO: fix it!
+      virtual pExp Evaluate(Context&) const {return Create(mValue);}
 
       virtual std::string WhoAmI() const {return "BoolExp";}
       
