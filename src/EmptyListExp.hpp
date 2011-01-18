@@ -2,6 +2,7 @@
 #define EMPTY_LIST_EXP_H 
 
 #include "Exp.hpp"
+#include "Utils.hpp"
 
 #include <string>
 
@@ -14,8 +15,10 @@ namespace sexp_cpp
     public:
       EmptyListExp() {}
       virtual ~EmptyListExp() {}
+      
+      static pExp Create() { return pExp(new EmptyListExp());}
 
-      virtual pExp Evaluate(Context&) const {return pExp(new EmptyListExp());}
+      virtual pExp Evaluate(Context&) const {return Create();}
 
       virtual std::string WhoAmI() const {return "EmptyListExp";}
 

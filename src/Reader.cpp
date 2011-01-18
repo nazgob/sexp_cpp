@@ -19,7 +19,7 @@ namespace sexp_cpp
     if(Recognizer::IsInteger(token))
     {
       tokens.pop_front();
-      return pVal(new ValExp(boost::lexical_cast<int>(token))); // TODO: handle errors
+      return ValExp::Create(boost::lexical_cast<int>(token)); // TODO: handle errors
     }
 
     // booleans
@@ -28,11 +28,11 @@ namespace sexp_cpp
       tokens.pop_front();
       if(token == "#t")
       {
-        return pBool(new BoolExp(true));
+        return BoolExp::Create(true);
       }
       if(token == "#f")
       {
-        return pBool(new BoolExp(false));
+        return BoolExp::Create(false);
       }
     }
 
@@ -40,7 +40,7 @@ namespace sexp_cpp
     if(Recognizer::IsSymbol(token))
     {
       tokens.pop_front();
-      return pSymbol(new SymbolExp(token));
+      return SymbolExp::Create(token);
     }
 
     // empty lists
@@ -50,7 +50,7 @@ namespace sexp_cpp
       assert(tokens.back() == ")");
       tokens.pop_front();
 
-      return pEList(new EmptyListExp());
+      return EmptyListExp::Create();
     }
 
     // single quote
@@ -89,20 +89,20 @@ namespace sexp_cpp
       return ReadList(tokens);
     }
 
-    return pNull(new NullExp());
+    return NullExp::Create();
   }
 
   pExp Reader::ReadList(std::list<std::string>& tokens)
   {
     if(tokens.front() == ")")
     {
-      return pEList(new EmptyListExp());
+      return EmptyListExp::Create();
     }
 
     pExp car(Read(tokens));
     pExp cdr(ReadList(tokens));
 
-    return pPair(new PairExp(car, cdr));
+    return PairExp::Create(car, cdr);
   }
 
 } // sexp_cpp

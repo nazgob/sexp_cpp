@@ -22,6 +22,8 @@ namespace sexp_cpp
         assert(NULL != mCdr);
       }
       virtual ~PairExp() {}
+      
+      static pExp Create(pExp car, pExp cdr) { return pExp(new PairExp(car, cdr));}
 
       virtual pExp Evaluate(Context&) const;
 
