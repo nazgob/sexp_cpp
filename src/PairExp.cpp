@@ -1,6 +1,7 @@
 #include "PairExp.hpp"
 #include "Context.hpp"
 #include "SymbolExp.hpp"
+#include "BoolExp.hpp"
 
 namespace sexp_cpp
 {
@@ -15,6 +16,7 @@ namespace sexp_cpp
   #define cadr(exp) car(cdr(exp))
 
   #define caddr(exp) car(cdr(cdr(exp)))
+  #define cadddr(exp) car(cdr(cdr(cdr(exp))))
 
   pExp PairExp::Evaluate(Context& context) const
   {
@@ -31,6 +33,21 @@ namespace sexp_cpp
     {
       context.Set(cadr(this)->Write(), caddr(this));
       return SymbolExp::Create("ok");
+    }
+    if(mCar->Write() == "if")
+    {
+      if(cadr(this)->Write() != "#f")
+      {
+        return caddr(this);
+      }
+      else if(caddr(this)->Write() == "()")
+      {
+        return BoolExp::Create(false);
+      }
+      else
+      {
+        return cadddr(this);
+      }
     }
 
     return Create(mCar, mCdr);

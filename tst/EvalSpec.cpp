@@ -159,5 +159,57 @@ namespace
     EXPECT_EQ("77", tmp->Write());
     EXPECT_EQ("ValExp", tmp->WhoAmI());
   }
+
+  TEST(EvalSpec, IfTrueTest)
+  {
+    std::stringstream code("(if #t 1 2)");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
+    EXPECT_EQ("1", print(exp));
+  }
+  
+  TEST(EvalSpec, IfFalseTest)
+  {
+    std::stringstream code("(if #f 1 2)");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
+    EXPECT_EQ("2", print(exp));
+  }
+  
+  TEST(EvalSpec, IfTrueWithQuote)
+  {
+    std::stringstream code("(if #t (quote 1) 42))");
+
+    pExp exp = eval(read(code));
+    exp = eval(exp); // TODO: move to Evaluate!
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
+    EXPECT_EQ("1", print(exp));
+  }
+  
+  TEST(EvalSpec, IfFalseWithQuote)
+  {
+    std::stringstream code("(if #f 1 (quote 42))");
+
+    pExp exp = eval(read(code));
+    exp = eval(exp); // TODO: move to Evaluate!
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
+    EXPECT_EQ("42", print(exp));
+  }
+  
+  TEST(EvalSpec, IfWithDoubleQuotes)
+  {
+    std::stringstream code("(if #f (quote 1) (quote 2))");
+
+    pExp exp = read(code);
+    exp = eval(exp);
+    exp = eval(exp); // TODO: move to Evaluate!
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
+    EXPECT_EQ("2", print(exp));
+  }
+    
+  //TODO: fix single quoting in complex expressions std::stringstream code("(if #f 'a 'b)");
+  
 }
 

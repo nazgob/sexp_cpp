@@ -120,6 +120,15 @@ namespace
     EXPECT_EQ(result->WhoAmI(), "PairExp");
     EXPECT_EQ(result->Write(), "quote 42");
   }
+  
+  TEST_F(ReaderTest, ShouldReadVariadicListWithSingleQuotes)
+  {
+    std::string quoted = "(if #f 'a 'b)";
+    std::list<std::string> quotedList = DataFactory::GetList(quoted);
+    pExp result = reader.Read(quotedList);
+    EXPECT_EQ(result->WhoAmI(), "PairExp");
+    EXPECT_EQ(result->Write(), "if #f quote a quote b");
+  }
 
 }
 

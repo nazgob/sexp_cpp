@@ -82,6 +82,7 @@ namespace sexp_cpp
   {
     if(tokens.front() == ")")
     {
+      tokens.pop_front();
       return EmptyListExp::Create();
     }
 

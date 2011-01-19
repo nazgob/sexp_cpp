@@ -86,6 +86,27 @@ namespace
     EXPECT_EQ(")", list.front()); list.pop_front();
     EXPECT_TRUE(list.empty());
   }
-
+  
+  TEST(TokenizerTest, ListWithTwoQuotes)
+  {
+    std::string sample = "(if #f (quote a) (quote b))";
+    Tokenizer tokenizer;
+    std::list<std::string> list = tokenizer.Tokenize(sample);
+    EXPECT_EQ(static_cast<size_t>(12), list.size());
+    EXPECT_EQ("(", list.front()); list.pop_front();
+    EXPECT_EQ("if", list.front()); list.pop_front();
+    EXPECT_EQ("#f", list.front()); list.pop_front();
+    EXPECT_EQ("(", list.front()); list.pop_front();
+    EXPECT_EQ("quote", list.front()); list.pop_front();
+    EXPECT_EQ("a", list.front()); list.pop_front();
+    EXPECT_EQ(")", list.front()); list.pop_front();
+    EXPECT_EQ("(", list.front()); list.pop_front();
+    EXPECT_EQ("quote", list.front()); list.pop_front();
+    EXPECT_EQ("b", list.front()); list.pop_front();
+    EXPECT_EQ(")", list.front()); list.pop_front();
+    EXPECT_EQ(")", list.front()); list.pop_front();
+    EXPECT_TRUE(list.empty());
+  }
+  
 }
 
