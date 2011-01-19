@@ -85,7 +85,10 @@ namespace sexp_cpp
       return EmptyListExp::Create();
     }
 
-    return PairExp::Create(Read(tokens), ReadList(tokens));
+    pExp lhs = Read(tokens);
+    pExp rhs = ReadList(tokens);
+
+    return PairExp::Create(lhs, rhs);
   }
 
 } // sexp_cpp
