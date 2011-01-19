@@ -74,7 +74,7 @@ namespace sexp_cpp
     if(IsList(tokens))
     {
       std::list<std::string>::const_iterator it = tokens.begin();
-      assert(*it == "("); it++;
+      assert(*it == "("); ++it;
       if(*it == "quote")
       {
         return true;
