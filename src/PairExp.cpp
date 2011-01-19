@@ -38,7 +38,8 @@ namespace sexp_cpp
     {
       if(cadr(this)->Write() != "#f")
       {
-        return caddr(this);
+        //TODO: this eval call is instead of proper tail recursion!
+        return caddr(this)->Evaluate(context); 
       }
       else if(caddr(this)->Write() == "()")
       {
@@ -46,7 +47,8 @@ namespace sexp_cpp
       }
       else
       {
-        return cadddr(this);
+        //TODO: this eval call is instead of proper tail recursion!
+        return cadddr(this)->Evaluate(context);
       }
     }
 

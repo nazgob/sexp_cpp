@@ -193,7 +193,6 @@ namespace
     std::stringstream code("(if #f 1 (quote 42))");
 
     pExp exp = eval(read(code));
-    exp = eval(exp); // TODO: move to Evaluate!
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("42", print(exp));
   }
@@ -204,7 +203,6 @@ namespace
 
     pExp exp = read(code);
     exp = eval(exp);
-    exp = eval(exp); // TODO: move to Evaluate!
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("2", print(exp));
   }
