@@ -10,18 +10,28 @@ namespace sexp_cpp
 
   void Context::Define(pSymbol symbol, pExp exp)
   {
-    mContextMap[symbol->GetName()] = exp;
+    Define(symbol->GetName(), exp);
+  }
+
+  void Context::Define(const std::string& symbolName, pExp exp)
+  {
+    mContextMap[symbolName] = exp;
   }
 
   void Context::Set(pSymbol symbol, pExp exp)
   {
-    if(mContextMap.find(symbol->GetName()) != mContextMap.end())
+    Set(symbol->GetName(), exp);
+  }
+
+  void Context::Set(const std::string& symbolName, pExp exp)
+  {
+    if(mContextMap.find(symbolName) != mContextMap.end())
     {
-      mContextMap[symbol->GetName()] = exp;
+      mContextMap[symbolName] = exp;
     }
     else
     {
-      throw std::logic_error("context error / undefined variable set: " + symbol->GetName());
+      throw std::logic_error("context error / undefined variable set: " + symbolName);
     }
   }
 

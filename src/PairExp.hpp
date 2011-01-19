@@ -25,7 +25,7 @@ namespace sexp_cpp
       
       static pExp Create(pExp car, pExp cdr) { return pExp(new PairExp(car, cdr));}
 
-      virtual pExp Evaluate(Context&) const;
+      virtual pExp Evaluate(Context& context) const;
 
       virtual std::string WhoAmI() const {return "PairExp";}
 

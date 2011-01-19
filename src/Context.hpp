@@ -12,7 +12,9 @@ namespace sexp_cpp
   {
     public:
       void Define(pSymbol symbol, pExp exp);
+      void Define(const std::string& symbolName, pExp exp);
       void Set(pSymbol symbol, pExp exp);
+      void Set(const std::string& symbolName, pExp exp);
       pExp Lookup(pSymbol symbol) const;
       pExp Lookup(const std::string& symbolName) const;
 

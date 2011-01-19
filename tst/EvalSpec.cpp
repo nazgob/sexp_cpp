@@ -52,6 +52,7 @@ namespace
   TEST(EvalSpec, SymbolExp)
   {
     std::stringstream code("foobar");
+
     context.Define(SymbolExp::Create("foobar"), ValExp::Create(42));
 
     pExp exp = eval(read(code));
@@ -129,6 +130,34 @@ namespace
     pExp exp = eval(read(code));
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("42", print(exp));
+  }
+
+  TEST(EvalSpec, DefineTest)
+  {
+    std::stringstream code("(define foo 55)");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "SymbolExp");
+    EXPECT_EQ("ok", print(exp));
+
+    pExp tmp = context.Lookup("foo")->Evaluate(context);
+    EXPECT_EQ("55", tmp->Write());
+    EXPECT_EQ("ValExp", tmp->WhoAmI());
+  }
+  
+  TEST(EvalSpec, SetTest)
+  {
+    std::stringstream code("(set! bar 77)");
+
+    context.Define(SymbolExp::Create("bar"), ValExp::Create(0));
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "SymbolExp");
+    EXPECT_EQ("ok", print(exp));
+
+    pExp tmp = context.Lookup("bar")->Evaluate(context);
+    EXPECT_EQ("77", tmp->Write());
+    EXPECT_EQ("ValExp", tmp->WhoAmI());
   }
 }
 

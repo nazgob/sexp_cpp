@@ -14,7 +14,7 @@
 
 namespace sexp_cpp
 {
-  Context context;
+  Context context; // TODO: consider injecting context to repl loop
 
   pExp read(std::stringstream& ss)
   {
