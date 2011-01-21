@@ -20,6 +20,19 @@ namespace sexp_cpp
   typedef boost::shared_ptr<BoolExp> pBool;
   typedef boost::shared_ptr<EmptyListExp> pEList;
   typedef boost::shared_ptr<PairExp> pPair;
+  
+  #define car(exp) exp->Car()
+  #define cdr(exp) exp->Cdr()
+
+  #define caar(exp) car(car(exp))
+  #define cddr(exp) cdr(cdr(exp))
+
+  #define cdar(exp) cdr(car(exp))
+  #define cadr(exp) car(cdr(exp))
+
+  #define caddr(exp) car(cdr(cdr(exp)))
+  #define cadddr(exp) car(cdr(cdr(cdr(exp))))
+
 
 } // sexp_cpp
 

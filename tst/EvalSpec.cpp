@@ -132,7 +132,7 @@ namespace
     EXPECT_EQ("42", print(exp));
   }
 
-  TEST(EvalSpec, DefineTest)
+  TEST(EvalSpec, Define)
   {
     std::stringstream code("(define foo 55)");
 
@@ -145,7 +145,7 @@ namespace
     EXPECT_EQ("ValExp", tmp->WhoAmI());
   }
   
-  TEST(EvalSpec, SetTest)
+  TEST(EvalSpec, Set)
   {
     std::stringstream code("(set! bar 77)");
 
@@ -160,7 +160,7 @@ namespace
     EXPECT_EQ("ValExp", tmp->WhoAmI());
   }
 
-  TEST(EvalSpec, IfTrueTest)
+  TEST(EvalSpec, IfTrue)
   {
     std::stringstream code("(if #t 1 2)");
 
@@ -169,7 +169,7 @@ namespace
     EXPECT_EQ("1", print(exp));
   }
   
-  TEST(EvalSpec, IfFalseTest)
+  TEST(EvalSpec, IfFalse)
   {
     std::stringstream code("(if #f 1 2)");
 
@@ -183,7 +183,7 @@ namespace
     std::stringstream code("(if #t (quote 1) 42))");
 
     pExp exp = eval(read(code));
-    exp = eval(exp); // TODO: move to Evaluate!
+    exp = eval(exp);
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("1", print(exp));
   }
@@ -201,13 +201,30 @@ namespace
   {
     std::stringstream code("(if #f (quote 1) (quote 2))");
 
-    pExp exp = read(code);
-    exp = eval(exp);
+    pExp exp = eval(read(code));
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("2", print(exp));
   }
     
   //TODO: fix single quoting in complex expressions std::stringstream code("(if #f 'a 'b)");
   
+  TEST(EvalSpec, Addition)
+  {
+    std::stringstream code("(+ 1 2 3)");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
+    EXPECT_EQ("6", print(exp));
+  }
+  
+  TEST(EvalSpec, FunctionPrint)
+  {
+    std::stringstream code("+");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "AddFunc");
+    EXPECT_EQ("#<procedure>", print(exp));
+  }
+
 }
 

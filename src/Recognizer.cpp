@@ -31,7 +31,7 @@ namespace sexp_cpp
   }
   bool Recognizer::IsSymbol(const std::string& token)
   {
-    if(isalpha(token[0])) // TODO: '*' '/' '>' '<' '=' '?' '!' can are allowed to?
+    if(isalpha(token[0]) || token == "+") // TODO: '*' '/' '>' '<' '=' '?' '!'  are allowed to?
     {
       return true;
     }

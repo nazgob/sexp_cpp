@@ -130,5 +130,13 @@ namespace
     EXPECT_EQ(result->Write(), "if #f quote a quote b");
   }
 
+  TEST_F(ReaderTest, ShouldReadAddition)
+  {
+    std::string addition("(+ 1 2)");
+    std::list<std::string> additionList = DataFactory::GetList(addition);
+    pExp additionResult = reader.Read(additionList);
+    EXPECT_EQ(additionResult->WhoAmI(), "PairExp");
+    EXPECT_EQ(additionResult->Write(), "+ 1 2");
+  }
 }
 

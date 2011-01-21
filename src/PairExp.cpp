@@ -3,20 +3,10 @@
 #include "SymbolExp.hpp"
 #include "BoolExp.hpp"
 
+#include "AddFunc.hpp"
+
 namespace sexp_cpp
 {
-
-  #define car(exp) exp->Car()
-  #define cdr(exp) exp->Cdr()
-
-  #define caar(exp) car(car(exp))
-  #define cddr(exp) cdr(cdr(exp))
-
-  #define cdar(exp) cdr(car(exp))
-  #define cadr(exp) car(cdr(exp))
-
-  #define caddr(exp) car(cdr(cdr(exp)))
-  #define cadddr(exp) car(cdr(cdr(cdr(exp))))
 
   pExp PairExp::Evaluate(Context& context) const
   {
@@ -50,6 +40,13 @@ namespace sexp_cpp
         //TODO: this eval call is instead of proper tail recursion!
         return cadddr(this)->Evaluate(context);
       }
+    }
+    if(mCar->Write() == "+") //TODO: this will be pulled from context
+    {
+      // pExp function = context.Lookup("+");
+      // function->load(mCdr);
+      // return function->Evaluate(context);
+      return AddFunc::Create(mCdr)->Evaluate(context);
     }
 
     return Create(mCar, mCdr);
