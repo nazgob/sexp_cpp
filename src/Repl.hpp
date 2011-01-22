@@ -12,9 +12,16 @@
 #include "Reader.hpp"
 #include "Utils.hpp"
 
+#include "AddFunc.hpp"
+
 namespace sexp_cpp
 {
   Context context; // TODO: consider injecting context to repl loop
+
+  void setupEnv(Context& context) // TODO: move to other file/class when it grows
+  {
+    context.DefineFunc("+", AddFunc::Create());
+  }
 
   pExp read(std::stringstream& ss)
   {

@@ -1,7 +1,6 @@
 #ifndef ADD_FUNC_H
 #define ADD_FUNC_H
 
-#include "Exp.hpp"
 #include "Utils.hpp"
 #include "ValExp.hpp"
 #include "EmptyListExp.hpp"
@@ -15,13 +14,16 @@ namespace sexp_cpp
 {
   class Context;
   class Exp;
-  
-  class AddFunc : public Exp 
+ 
+  //TODO: make it generic Func method cusomizable by Evaluate strategy
+  class AddFunc : public Exp
   {
     public:
-      AddFunc(pExp list) : mList(list) {}
+      AddFunc() : mList(EmptyListExp::Create()) {}
+      AddFunc(pExp list) : mList(list) {} //TODO: consider adding "+" as field
       virtual ~AddFunc() {}
       
+      static pFunc Create() { return pFunc(new AddFunc());}
       static pExp Create(pExp list) { return pExp(new AddFunc(list));}
 
       virtual pExp Evaluate(Context&) const
@@ -30,7 +32,7 @@ namespace sexp_cpp
         int result = 0;
         if(list->WhoAmI() == "EmptyListExp")
         {
-          return Create(AddFunc::Create(EmptyListExp::Create()));
+          return Create();
         }
 
         while(list->WhoAmI() != "EmptyListExp")
@@ -47,10 +49,9 @@ namespace sexp_cpp
       {
         return "#<procedure>";
       }
-      
-      virtual pExp Car() const {throw std::logic_error("AddFunc::Car() called!");}
-      virtual pExp Cdr() const {throw std::logic_error("AddFunc::Cdr() called!");}
 
+      void SetList(pExp list) {mList = list;}
+      
     protected:
       pExp mList;
   };

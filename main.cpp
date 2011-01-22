@@ -8,6 +8,8 @@ using namespace sexp_cpp;
 
 int main()
 {
+  setupEnv(context);
+
   // (loop (print (eval (read))))
   while(1)
   {

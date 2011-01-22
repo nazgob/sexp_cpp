@@ -12,6 +12,7 @@ namespace sexp_cpp
   class NullExp;
   class EmptyListExp;
   class PairExp;
+  class AddFunc; //TODO spike, change to generic Func
 
   typedef boost::shared_ptr<Exp> pExp;
   typedef boost::shared_ptr<SymbolExp> pSymbol;
@@ -20,6 +21,7 @@ namespace sexp_cpp
   typedef boost::shared_ptr<BoolExp> pBool;
   typedef boost::shared_ptr<EmptyListExp> pEList;
   typedef boost::shared_ptr<PairExp> pPair;
+  typedef boost::shared_ptr<AddFunc> pFunc;
   
   #define car(exp) exp->Car()
   #define cdr(exp) exp->Cdr()

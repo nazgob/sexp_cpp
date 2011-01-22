@@ -10,7 +10,6 @@
 namespace sexp_cpp
 {
   class Context;
-  class Exp;
 
   class NullExp : public Exp 
   {
@@ -24,13 +23,7 @@ namespace sexp_cpp
 
       virtual std::string WhoAmI() const {return "NullExp";}
       
-      virtual std::string Write() const
-      {
-        return "NULL";
-      }
-      
-      virtual pExp Car() const {throw std::logic_error("NullExp::Car() called!");}
-      virtual pExp Cdr() const {throw std::logic_error("NullExp::Cdr() called!");}
+      virtual std::string Write() const {return "NULL";}
   };
 
 } // sexp_cpp

@@ -4,6 +4,10 @@
 #include "../src/BoolExp.hpp"
 #include "../src/ValExp.hpp"
 #include "../src/NullExp.hpp"
+#include "../src/AddFunc.hpp"
+#include "../src/Reader.hpp"
+
+#include "DataFactory.hpp"
 
 using namespace sexp_cpp;
 
@@ -66,5 +70,25 @@ namespace
     EXPECT_THROW(context.Lookup("foobar"), std::runtime_error);
   }
 
+  TEST(ContextTest, DefineAndLookupFunc)
+  {
+    Context context;
+    context.DefineFunc("+", AddFunc::Create());
+
+    pFunc addition = context.LookupFunc("+");
+    EXPECT_EQ("AddFunc", addition->WhoAmI());
+    EXPECT_EQ("#<procedure>", addition->Write());
+
+    std::string values = "(1 2 3 4 5)";
+    std::list<std::string> valuesList = DataFactory::GetList(values);
+    
+    Reader reader;
+    pExp valuesResult = reader.Read(valuesList);
+
+    addition->SetList(valuesResult);
+    pExp result = addition->Evaluate(context);
+    EXPECT_EQ("ValExp", result->WhoAmI());
+    EXPECT_EQ("15", result->Write());
+  }
 } 
 

@@ -30,9 +30,6 @@ namespace sexp_cpp
         return mName;
       }
       
-      virtual pExp Car() const {throw std::logic_error("SymbolExp::Car() called!");}
-      virtual pExp Cdr() const {throw std::logic_error("SymbolExp::Cdr() called!");}
-
     protected:
       std::string mName;
   };

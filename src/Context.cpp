@@ -15,7 +15,7 @@ namespace sexp_cpp
 
   void Context::Define(const std::string& symbolName, pExp exp)
   {
-    mContextMap[symbolName] = exp;
+    mContextValMap[symbolName] = exp;
   }
 
   void Context::Set(pSymbol symbol, pExp exp)
@@ -25,9 +25,9 @@ namespace sexp_cpp
 
   void Context::Set(const std::string& symbolName, pExp exp)
   {
-    if(mContextMap.find(symbolName) != mContextMap.end())
+    if(mContextValMap.find(symbolName) != mContextValMap.end())
     {
-      mContextMap[symbolName] = exp;
+      mContextValMap[symbolName] = exp;
     }
     else
     {
@@ -42,15 +42,34 @@ namespace sexp_cpp
 
   pExp Context::Lookup(const std::string& symbolName) const
   {
-    ContextType::const_iterator it = mContextMap.find(symbolName);
+    ContextValType::const_iterator it = mContextValMap.find(symbolName);
 
-    if(it != mContextMap.end())
+    if(it != mContextValMap.end())
     {
       return it->second;
     }
     else
     {
       throw std::runtime_error("context error / undefined variable lookup: " + symbolName);
+    }
+  }
+
+  void Context::DefineFunc(const std::string& funcName, pFunc func)
+  {
+    mContextFuncMap[funcName] = func;
+  }
+
+  pFunc Context::LookupFunc(const std::string& funcName) const
+  {
+    ContextFuncType::const_iterator it = mContextFuncMap.find(funcName);
+
+    if(it != mContextFuncMap.end())
+    {
+      return it->second;
+    }
+    else
+    {
+      throw std::runtime_error("context error / undefined function lookup: " + funcName);
     }
   }
 
