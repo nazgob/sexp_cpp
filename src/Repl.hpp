@@ -11,8 +11,8 @@
 #include "Tokenizer.hpp"
 #include "Reader.hpp"
 #include "Utils.hpp"
-
-#include "AddFunc.hpp"
+#include "Func.hpp"
+#include "Add.hpp"
 
 namespace sexp_cpp
 {

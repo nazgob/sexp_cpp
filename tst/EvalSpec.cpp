@@ -5,7 +5,8 @@
 #include "../src/Context.hpp"
 #include "../src/SymbolExp.hpp"
 #include "../src/ValExp.hpp"
-#include "../src/AddFunc.hpp"
+#include "../src/Func.hpp"
+#include "../src/Add.hpp"
 
 #include <sstream>
 #include <string>
@@ -207,8 +208,6 @@ namespace
     EXPECT_EQ("2", print(exp));
   }
     
-  //TODO: fix single quoting in complex expressions std::stringstream code("(if #f 'a 'b)");
-  
   TEST(EvalSpec, Addition)
   {
     std::stringstream code("(+ 1 2 3)");
@@ -219,6 +218,8 @@ namespace
     EXPECT_EQ("6", print(exp));
   }
   
+  //TODO: fix single quoting in complex expressions std::stringstream code("(if #f 'a 'b)");
+
   //TEST(EvalSpec, FunctionPrint)
   //{
     //std::stringstream code("+");

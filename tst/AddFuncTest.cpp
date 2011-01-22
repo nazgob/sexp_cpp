@@ -4,7 +4,8 @@
 #include "../src/Reader.hpp"
 #include "../src/Exp.hpp"
 #include "../src/Context.hpp"
-#include "../src/AddFunc.hpp"
+#include "../src/Func.hpp"
+#include "../src/Add.hpp"
 
 #include <string>
 

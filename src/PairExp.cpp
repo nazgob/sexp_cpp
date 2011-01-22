@@ -2,8 +2,7 @@
 #include "Context.hpp"
 #include "SymbolExp.hpp"
 #include "BoolExp.hpp"
-
-#include "AddFunc.hpp"
+#include "Func.hpp"
 
 namespace sexp_cpp
 {

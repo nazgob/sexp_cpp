@@ -1,11 +1,12 @@
 #include <gtest/gtest.h>
 #include "../src/Context.hpp"
+#include "../src/Reader.hpp"
 #include "../src/SymbolExp.hpp"
 #include "../src/BoolExp.hpp"
 #include "../src/ValExp.hpp"
 #include "../src/NullExp.hpp"
-#include "../src/AddFunc.hpp"
-#include "../src/Reader.hpp"
+#include "../src/Func.hpp"
+#include "../src/Add.hpp"
 
 #include "DataFactory.hpp"
 
