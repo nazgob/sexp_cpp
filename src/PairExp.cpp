@@ -8,7 +8,7 @@
 namespace sexp_cpp
 {
 
-  //TODO: make symbols like quote or if addeble to context
+  //TODO: make symbols like quote or if and add them to context
   // then consider pulling making use of global eval method
   pExp PairExp::Evaluate(Context& context) const
   {
@@ -43,14 +43,12 @@ namespace sexp_cpp
         return cadddr(this)->Evaluate(context);
       }
     }
-    if(mCar->Write() == "+") //TODO: this will be pulled from context
+    if(mCar->WhoAmI() == "SymbolExp")
     {
-      pFunc function = context.LookupFunc("+");
+      pFunc function = context.LookupFunc(mCar->Write());
       function->SetList(mCdr);
       return function->Evaluate(context);
-      //return AddFunc::Create(mCdr)->Evaluate(context);
     }
-
     return Create(mCar, mCdr);
   }
 
@@ -70,7 +68,6 @@ namespace sexp_cpp
         << " "
         << cdr;
     }
-
     return ss.str();
   }
 

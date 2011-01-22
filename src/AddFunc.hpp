@@ -7,34 +7,32 @@
 
 #include <string>
 #include <stdexcept>
-
 #include <boost/lexical_cast.hpp>
 
 namespace sexp_cpp
 {
   class Context;
   class Exp;
- 
-  //TODO: make it generic Func method cusomizable by Evaluate strategy
-  class AddFunc : public Exp
+
+  class Procedure
   {
     public:
-      AddFunc() : mList(EmptyListExp::Create()) {}
-      AddFunc(pExp list) : mList(list) {} //TODO: consider adding "+" as field
-      virtual ~AddFunc() {}
-      
-      static pFunc Create() { return pFunc(new AddFunc());}
-      static pExp Create(pExp list) { return pExp(new AddFunc(list));}
+      virtual pExp Apply(pExp list) const = 0;
+  };
 
-      virtual pExp Evaluate(Context&) const
+  class Add : public Procedure
+  {
+    public:
+      virtual ~Add() {}
+      static pProc Create() {return pProc(new Add());}
+
+      virtual pExp Apply(pExp list) const
       {
-        pExp list = mList;
         int result = 0;
         if(list->WhoAmI() == "EmptyListExp")
         {
-          return Create();
+          return EmptyListExp::Create();
         }
-
         while(list->WhoAmI() != "EmptyListExp")
         {
           result += boost::lexical_cast<int>(car(list)->Write());
@@ -42,8 +40,22 @@ namespace sexp_cpp
         }
         return ValExp::Create(result);
       }
+  };
 
-      virtual std::string WhoAmI() const {return "AddFunc";}
+  class Func : public Exp
+  {
+    public:
+      Func(pProc add) : mProc(add), mList(EmptyListExp::Create()) {}
+      virtual ~Func() {}
+      
+      static pFunc Create(pProc proc) {return pFunc(new Func(proc));}
+
+      virtual pExp Evaluate(Context&) const
+      {
+        return mProc->Apply(mList);
+      }
+
+      virtual std::string WhoAmI() const {return "Func";}
       
       virtual std::string Write() const
       {
@@ -53,6 +65,7 @@ namespace sexp_cpp
       void SetList(pExp list) {mList = list;}
       
     protected:
+      pProc mProc;
       pExp mList;
   };
 

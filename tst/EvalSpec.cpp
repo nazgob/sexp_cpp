@@ -212,7 +212,7 @@ namespace
   TEST(EvalSpec, Addition)
   {
     std::stringstream code("(+ 1 2 3)");
-    context.DefineFunc("+", AddFunc::Create());
+    context.DefineFunc("+", Func::Create(Add::Create())); //TODO: make a factory for common procedures!
 
     pExp exp = eval(read(code));
     EXPECT_EQ(exp->WhoAmI(), "ValExp");

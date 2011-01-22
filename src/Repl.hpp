@@ -20,7 +20,7 @@ namespace sexp_cpp
 
   void setupEnv(Context& context) // TODO: move to other file/class when it grows
   {
-    context.DefineFunc("+", AddFunc::Create());
+    context.DefineFunc("+", Func::Create(Add::Create())); //TODO: make a factory for common procedures!
   }
 
   pExp read(std::stringstream& ss)

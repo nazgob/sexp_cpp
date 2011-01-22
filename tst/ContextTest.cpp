@@ -73,10 +73,10 @@ namespace
   TEST(ContextTest, DefineAndLookupFunc)
   {
     Context context;
-    context.DefineFunc("+", AddFunc::Create());
+    context.DefineFunc("+", Func::Create(Add::Create())); //TODO: make a factory for common procedures!
 
     pFunc addition = context.LookupFunc("+");
-    EXPECT_EQ("AddFunc", addition->WhoAmI());
+    EXPECT_EQ("Func", addition->WhoAmI());
     EXPECT_EQ("#<procedure>", addition->Write());
 
     std::string values = "(1 2 3 4 5)";

@@ -21,21 +21,22 @@ namespace
     pExp valuesResult = reader.Read(valuesList);
 
     Context context;
-    AddFunc addFunc(valuesResult);
+    pFunc func = Func::Create(Add::Create());
+    func->SetList(valuesResult);
 
-    pExp result = addFunc.Evaluate(context);
+    pExp result = func->Evaluate(context);
     EXPECT_EQ(result->WhoAmI(), "ValExp");
     EXPECT_EQ(result->Write(), "15");
   }
   
-  TEST(AddFunc, EvalToItSelfWhenEmptyListProvided)
+  TEST(AddFunc, EvalToEmptyListWhenNoListProvided)
   {
     Context context;
-    AddFunc addFunc(EmptyListExp::Create());
+    pFunc func = Func::Create(Add::Create());
 
-    pExp result = addFunc.Evaluate(context);
-    EXPECT_EQ(result->WhoAmI(), "AddFunc");
-    EXPECT_EQ(result->Write(), "#<procedure>");
+    pExp result = func->Evaluate(context);
+    EXPECT_EQ(result->WhoAmI(), "EmptyListExp");
+    EXPECT_EQ(result->Write(), "");
   }
 }
 
