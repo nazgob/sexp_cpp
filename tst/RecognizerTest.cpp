@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "DataFactory.hpp"
+#include "Data.hpp"
 #include "../src/Recognizer.hpp"
 
 using namespace sexp_cpp;
@@ -44,8 +44,8 @@ namespace
     std::string emptyList = "()";
     std::string notEmptyList = "(2 2)";
 
-    EXPECT_TRUE(Recognizer::IsEmptyList(DataFactory::GetList(emptyList)));
-    EXPECT_FALSE(Recognizer::IsEmptyList(DataFactory::GetList(notEmptyList)));
+    EXPECT_TRUE(Recognizer::IsEmptyList(Data::CreateList(emptyList)));
+    EXPECT_FALSE(Recognizer::IsEmptyList(Data::CreateList(notEmptyList)));
   }
 
   TEST(RecognizerTest, IsList)
@@ -55,31 +55,31 @@ namespace
     std::string variadicList = "( 1 2 3 4 5 )";
     std::string emptyList = "()";
 
-    EXPECT_TRUE(Recognizer::IsList(DataFactory::GetList(simpleList)));
-    EXPECT_TRUE(Recognizer::IsList(DataFactory::GetList(nestedList)));
-    EXPECT_TRUE(Recognizer::IsList(DataFactory::GetList(variadicList)));
-    EXPECT_FALSE(Recognizer::IsList(DataFactory::GetList(emptyList)));
+    EXPECT_TRUE(Recognizer::IsList(Data::CreateList(simpleList)));
+    EXPECT_TRUE(Recognizer::IsList(Data::CreateList(nestedList)));
+    EXPECT_TRUE(Recognizer::IsList(Data::CreateList(variadicList)));
+    EXPECT_FALSE(Recognizer::IsList(Data::CreateList(emptyList)));
   }
   
   TEST(RecognizerTest, IsSingleQuoted)
   {
     std::string quotedSymbol = "'a";
-    EXPECT_TRUE(Recognizer::IsSingleQuoted(DataFactory::GetList(quotedSymbol)));
+    EXPECT_TRUE(Recognizer::IsSingleQuoted(Data::CreateList(quotedSymbol)));
 
     std::string quotedTruth = "'#t";
-    EXPECT_TRUE(Recognizer::IsSingleQuoted(DataFactory::GetList(quotedTruth)));
+    EXPECT_TRUE(Recognizer::IsSingleQuoted(Data::CreateList(quotedTruth)));
     
     std::string quotedInteger = "'123";
-    EXPECT_TRUE(Recognizer::IsSingleQuoted(DataFactory::GetList(quotedInteger)));
+    EXPECT_TRUE(Recognizer::IsSingleQuoted(Data::CreateList(quotedInteger)));
   }
   
   TEST(RecognizerTest, IsQuotedList)
   {
     std::string singleQuotedList = "'(1 2 3)";
-    EXPECT_TRUE(Recognizer::IsSingleQuoted(DataFactory::GetList(singleQuotedList)));
+    EXPECT_TRUE(Recognizer::IsSingleQuoted(Data::CreateList(singleQuotedList)));
     
     std::string quotedList = "(quote (1 2 3))";
-    EXPECT_TRUE(Recognizer::IsQuotedList(DataFactory::GetList(quotedList)));
+    EXPECT_TRUE(Recognizer::IsQuotedList(Data::CreateList(quotedList)));
   }
 
 }

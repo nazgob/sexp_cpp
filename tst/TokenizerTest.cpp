@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "DataFactory.hpp"
+#include "Data.hpp"
 #include "../src/Tokenizer.hpp"
 #include "../src/Utils.hpp"
 
@@ -20,9 +20,8 @@ namespace
 
   TEST(TokenizerTest, EmptyList)
   {
-    std::string sample = "()";
-    Tokenizer tokenizer;
-    std::list<std::string> list = tokenizer.Tokenize(sample);
+    std::list<std::string> list = Data::CreateList("()");
+
     EXPECT_EQ("(", list.front());
     EXPECT_EQ(")", list.back());
     EXPECT_EQ(static_cast<size_t>(2), list.size());
@@ -30,9 +29,8 @@ namespace
 
   TEST(TokenizerTest, EmptyListWithSpaces)
   {
-    std::string sample = " ( ) ";
-    Tokenizer tokenizer;
-    std::list<std::string> list = tokenizer.Tokenize(sample);
+    std::list<std::string> list = Data::CreateList(" ( ) ");
+
     EXPECT_EQ("(", list.front());
     EXPECT_EQ(")", list.back());
     EXPECT_EQ(static_cast<size_t>(2), list.size());
@@ -40,21 +38,15 @@ namespace
 
   TEST(TokenizerTest, Integer)
   {
-    std::string sample = "123";
-    Tokenizer tokenizer;
-    std::list<std::string> list = tokenizer.Tokenize(sample);
+    std::list<std::string> list = Data::CreateList("123");
+
     EXPECT_EQ("123", list.front());
     EXPECT_EQ(static_cast<size_t>(1), list.size());
   }
 
   TEST(TokenizerTest, SimpleSExp)
   {
-    // ( + 2 3 )
-    std::string sample;
-    DataFactory::FillWithSimpleSExp(sample);
-
-    Tokenizer tokenizer;
-    std::list<std::string> list = tokenizer.Tokenize(sample);
+    std::list<std::string> list = Data::CreateList("( + 2 3 )");
 
     EXPECT_EQ(static_cast<size_t>(5), list.size());
     EXPECT_EQ("(", list.front()); list.pop_front();
@@ -67,12 +59,7 @@ namespace
 
   TEST(TokenizerTest, NestedSExp)
   {
-    // ( + 1 ( - 4 5 ) )
-    std::string sample;
-    DataFactory::FillWithNestedSExp(sample);
-
-    Tokenizer tokenizer;
-    std::list<std::string> list = tokenizer.Tokenize(sample);
+    std::list<std::string> list = Data::CreateList("( + 1 ( - 4 5 ) )");
 
     EXPECT_EQ(static_cast<size_t>(9), list.size());
     EXPECT_EQ("(", list.front()); list.pop_front();
@@ -89,9 +76,8 @@ namespace
   
   TEST(TokenizerTest, ListWithTwoQuotes)
   {
-    std::string sample = "(if #f (quote a) (quote b))";
-    Tokenizer tokenizer;
-    std::list<std::string> list = tokenizer.Tokenize(sample);
+    std::list<std::string> list = Data::CreateList("(if #f (quote a) (quote b))");
+
     EXPECT_EQ(static_cast<size_t>(12), list.size());
     EXPECT_EQ("(", list.front()); list.pop_front();
     EXPECT_EQ("if", list.front()); list.pop_front();

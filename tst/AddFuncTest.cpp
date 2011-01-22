@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "DataFactory.hpp"
+#include "Data.hpp"
 #include "../src/Reader.hpp"
 #include "../src/Exp.hpp"
 #include "../src/Context.hpp"
@@ -15,11 +15,7 @@ namespace
 {
   TEST(AddFunc, JustSumItUp)
   {
-    std::string values = "(1 2 3 4 5)";
-    std::list<std::string> valuesList = DataFactory::GetList(values);
-    
-    Reader reader;
-    pExp valuesResult = reader.Read(valuesList);
+    pExp valuesResult = Data::CreateExp("(1 2 3 4 5)");
 
     Context context;
     pFunc func = Func::Create(Add::Create());

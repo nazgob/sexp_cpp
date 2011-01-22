@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "DataFactory.hpp"
+#include "Data.hpp"
 #include "../src/Reader.hpp"
 #include "../src/Exp.hpp"
 
@@ -21,16 +21,12 @@ namespace
 
   TEST_F(ReaderTest, ShouldReadInteger)
   {
-    std::string positive = "123";
-    std::list<std::string> positiveList = DataFactory::GetList(positive);
-
+    std::list<std::string> positiveList = Data::CreateList("123");
     pExp positiveResult = reader.Read(positiveList);
     EXPECT_EQ(positiveResult->WhoAmI(), "ValExp");
     EXPECT_EQ(positiveResult->Write(), "123");
 
-    std::string negative = "-123";
-    std::list<std::string> negativeList = DataFactory::GetList(negative);
-    
+    std::list<std::string> negativeList = Data::CreateList("-123");
     pExp negativeResult = reader.Read(negativeList);
     EXPECT_EQ(negativeResult->WhoAmI(), "ValExp");
     EXPECT_EQ(negativeResult->Write(), "-123");
@@ -38,16 +34,12 @@ namespace
 
   TEST_F(ReaderTest, ShouldReadBoolean)
   {
-    std::string sthTrue = "#t";
-    std::list<std::string> trueList = DataFactory::GetList(sthTrue);
-
+    std::list<std::string> trueList = Data::CreateList("#t");
     pExp trueResult = reader.Read(trueList);
     EXPECT_EQ(trueResult->WhoAmI(), "BoolExp");
     EXPECT_EQ(trueResult->Write(), "#t");
 
-    std::string sthFalse = "#f";
-    std::list<std::string> falseList = DataFactory::GetList(sthFalse);
-    
+    std::list<std::string> falseList = Data::CreateList("#f");
     pExp falseResult = reader.Read(falseList);
     EXPECT_EQ(falseResult->WhoAmI(), "BoolExp");
     EXPECT_EQ(falseResult->Write(), "#f");
@@ -55,9 +47,7 @@ namespace
   
   TEST_F(ReaderTest, ShouldReadSymbols) // TODO: check for other allowed symbol formats
   {
-    std::string symbol = "foobar";
-    std::list<std::string> symbolList = DataFactory::GetList(symbol);
-
+    std::list<std::string> symbolList = Data::CreateList("foobar");
     pExp result = reader.Read(symbolList);
     EXPECT_EQ(result->WhoAmI(), "SymbolExp");
     EXPECT_EQ(result->Write(), "foobar");
@@ -65,9 +55,7 @@ namespace
 
   TEST_F(ReaderTest, ShouldReadEmptyList)
   {
-    std::string empty = "()";
-    std::list<std::string> emptyList = DataFactory::GetList(empty);
-
+    std::list<std::string> emptyList = Data::CreateList("()");
     pExp result = reader.Read(emptyList);
     EXPECT_EQ(result->WhoAmI(), "EmptyListExp");
     EXPECT_EQ(result->Write(), "");
@@ -75,20 +63,17 @@ namespace
 
   TEST_F(ReaderTest, ShouldReadList)
   {
-    std::string simple("( 1 2 )");
-    std::list<std::string> simpleList = DataFactory::GetList(simple);
+    std::list<std::string> simpleList = Data::CreateList("( 1 2 )");
     pExp simpleResult = reader.Read(simpleList);
     EXPECT_EQ(simpleResult->WhoAmI(), "PairExp");
     EXPECT_EQ(simpleResult->Write(), "1 2");
 
-    std::string nested = "( 1 ( 2 3 ) )";
-    std::list<std::string> nestedList = DataFactory::GetList(nested);
+    std::list<std::string> nestedList = Data::CreateList("( 1 ( 2 3 ) )");
     pExp nestedResult = reader.Read(nestedList);
     EXPECT_EQ(nestedResult->WhoAmI(), "PairExp");
     EXPECT_EQ(nestedResult->Write(), "1 2 3");
 
-    std::string variadic = "( 1 2 3 4 5 )";
-    std::list<std::string> variadicList = DataFactory::GetList(variadic);
+    std::list<std::string> variadicList = Data::CreateList("(1 2 3 4 5)");
     pExp variadicResult = reader.Read(variadicList);
     EXPECT_EQ(variadicResult->WhoAmI(), "PairExp");
     EXPECT_EQ(variadicResult->Write(), "1 2 3 4 5");
@@ -96,17 +81,15 @@ namespace
   
   TEST_F(ReaderTest, ShouldReadQuotedSymbol)
   {
-    std::string quoted = "(quote symbol)";
-    std::list<std::string> quotedList = DataFactory::GetList(quoted);
-    pExp result = reader.Read(quotedList);
+    std::list<std::string> quotedSymbolList = Data::CreateList("(quote symbol)");
+    pExp result = reader.Read(quotedSymbolList);
     EXPECT_EQ(result->WhoAmI(), "PairExp");
     EXPECT_EQ(result->Write(), "quote symbol");
   }
   
   TEST_F(ReaderTest, ShouldReadQuotedList)
   {
-    std::string quoted = "(quote (1 2 3))";
-    std::list<std::string> quotedList = DataFactory::GetList(quoted);
+    std::list<std::string> quotedList = Data::CreateList("(quote (1 2 3))");
     pExp result = reader.Read(quotedList);
     EXPECT_EQ(result->WhoAmI(), "PairExp");
     EXPECT_EQ(result->Write(), "quote 1 2 3");
@@ -114,26 +97,23 @@ namespace
   
   TEST_F(ReaderTest, ShouldReadSingleQuotedInteger)
   {
-    std::string quoted = "'42";
-    std::list<std::string> quotedList = DataFactory::GetList(quoted);
-    pExp result = reader.Read(quotedList);
+    std::list<std::string> singleQuotedIntList = Data::CreateList("'42");
+    pExp result = reader.Read(singleQuotedIntList);
     EXPECT_EQ(result->WhoAmI(), "PairExp");
     EXPECT_EQ(result->Write(), "quote 42");
   }
   
   TEST_F(ReaderTest, ShouldReadVariadicListWithSingleQuotes)
   {
-    std::string quoted = "(if #f 'a 'b)";
-    std::list<std::string> quotedList = DataFactory::GetList(quoted);
-    pExp result = reader.Read(quotedList);
+    std::list<std::string> singleQuotedIntList = Data::CreateList("(if #f 'a 'b)");
+    pExp result = reader.Read(singleQuotedIntList);
     EXPECT_EQ(result->WhoAmI(), "PairExp");
     EXPECT_EQ(result->Write(), "if #f quote a quote b");
   }
 
   TEST_F(ReaderTest, ShouldReadAddition)
   {
-    std::string addition("(+ 1 2)");
-    std::list<std::string> additionList = DataFactory::GetList(addition);
+    std::list<std::string> additionList = Data::CreateList("(+ 1 2)");
     pExp additionResult = reader.Read(additionList);
     EXPECT_EQ(additionResult->WhoAmI(), "PairExp");
     EXPECT_EQ(additionResult->Write(), "+ 1 2");

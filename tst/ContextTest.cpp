@@ -8,7 +8,7 @@
 #include "../src/Func.hpp"
 #include "../src/Add.hpp"
 
-#include "DataFactory.hpp"
+#include "Data.hpp"
 
 using namespace sexp_cpp;
 
@@ -80,11 +80,7 @@ namespace
     EXPECT_EQ("Func", addition->WhoAmI());
     EXPECT_EQ("#<procedure>", addition->Write());
 
-    std::string values = "(1 2 3 4 5)";
-    std::list<std::string> valuesList = DataFactory::GetList(values);
-    
-    Reader reader;
-    pExp valuesResult = reader.Read(valuesList);
+    pExp valuesResult = Data::CreateExp("(1 2 3 4 5)");
 
     addition->SetList(valuesResult);
     pExp result = addition->Evaluate(context);
