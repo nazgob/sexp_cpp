@@ -11,11 +11,6 @@ namespace sexp_cpp
   // then consider pulling making use of global eval method
   pExp PairExp::Evaluate(Context& context) const
   {
-    if(mCar->Write() == "set!")
-    {
-      context.Set(cadr(this)->Write(), caddr(this));
-      return SymbolExp::Create("ok");
-    }
     if(mCar->Write() == "if")
     {
       if(cadr(this)->Write() != "#f")

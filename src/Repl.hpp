@@ -12,9 +12,11 @@
 #include "Reader.hpp"
 #include "Utils.hpp"
 #include "Func.hpp"
+
 #include "Add.hpp"
 #include "Quote.hpp"
 #include "Define.hpp"
+#include "Set.hpp"
 
 namespace sexp_cpp
 {
@@ -25,6 +27,7 @@ namespace sexp_cpp
     context.DefineFunc("+",      Func::Create(Add::Create()));
     context.DefineFunc("quote",  Func::Create(Quote::Create()));
     context.DefineFunc("define", Func::Create(Define::Create()));
+    context.DefineFunc("set!",   Func::Create(Set::Create()));
   }
 
   pExp read(std::stringstream& ss)
