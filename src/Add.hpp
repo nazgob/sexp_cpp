@@ -10,14 +10,16 @@
 
 namespace sexp_cpp
 {
-  
+
+  class Context;
+
   class Add : public Procedure
   {
     public:
       virtual ~Add() {}
       static pProc Create() {return pProc(new Add());}
 
-      virtual pExp Apply(pExp list) const
+      virtual pExp Apply(pExp list, Context&) const
       {
         int result = 0;
         if(list->WhoAmI() == "EmptyListExp")
@@ -32,7 +34,7 @@ namespace sexp_cpp
         return ValExp::Create(result);
       }
   };
-  
+
 } // sexp_cpp
 
 #endif // ADD_H

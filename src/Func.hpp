@@ -22,9 +22,9 @@ namespace sexp_cpp
       
       static pFunc Create(pProc proc) {return pFunc(new Func(proc));}
 
-      virtual pExp Evaluate(Context&) const
+      virtual pExp Evaluate(Context& context) const
       {
-        return mProc->Apply(mList);
+        return mProc->Apply(mList, context);
       }
 
       virtual std::string WhoAmI() const {return "Func";}

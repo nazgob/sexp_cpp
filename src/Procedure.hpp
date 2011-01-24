@@ -5,11 +5,13 @@
 
 namespace sexp_cpp
 {
-  
+ 
+  class Context;
+
   class Procedure
   {
     public:
-      virtual pExp Apply(pExp list) const = 0;
+      virtual pExp Apply(pExp list, Context& context) const = 0;
   };
 
 } // sexp_cpp

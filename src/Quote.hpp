@@ -6,6 +6,8 @@
 
 namespace sexp_cpp
 {
+
+  class Context;
   
   class Quote : public Procedure
   {
@@ -13,7 +15,7 @@ namespace sexp_cpp
       virtual ~Quote() {}
       static pProc Create() {return pProc(new Quote());}
 
-      virtual pExp Apply(pExp list) const
+      virtual pExp Apply(pExp list, Context&) const
       {
         return car(list);
       }
