@@ -242,6 +242,24 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "BoolExp");
     EXPECT_EQ("#t", print(exp));
   }
+  
+  TEST_F(EvalSpec, BooleanTypePredicateTrue)
+  {
+    std::stringstream code("(boolean? #f)");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "BoolExp");
+    EXPECT_EQ("#t", print(exp));
+  }
+  
+  TEST_F(EvalSpec, BooleanTypePredicateFalse)
+  {
+    std::stringstream code("(boolean? (+ 1 2))");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "BoolExp");
+    EXPECT_EQ("#f", print(exp));
+  }
    
   
   //TODO: fix single quoting in complex expressions std::stringstream code("(if #f 'a 'b)");
