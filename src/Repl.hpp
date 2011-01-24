@@ -17,6 +17,7 @@
 #include "Quote.hpp"
 #include "Define.hpp"
 #include "Set.hpp"
+#include "If.hpp"
 
 namespace sexp_cpp
 {
@@ -28,6 +29,7 @@ namespace sexp_cpp
     context.DefineFunc("quote",  Func::Create(Quote::Create()));
     context.DefineFunc("define", Func::Create(Define::Create()));
     context.DefineFunc("set!",   Func::Create(Set::Create()));
+    context.DefineFunc("if",     Func::Create(If::Create()));
   }
 
   pExp read(std::stringstream& ss)
