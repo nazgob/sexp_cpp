@@ -80,6 +80,17 @@ namespace sexp_cpp
 
   pExp Reader::ReadList(std::list<std::string>& tokens)
   {
+    if(tokens.front() == "(")
+    {
+      std::list<std::string>::iterator it = tokens.begin();
+      assert(*it == "("); ++it;
+      if(*it == ")")
+      {
+        tokens.pop_front();
+        tokens.pop_front();
+        return EmptyListExp::Create();
+      }
+    }
     if(tokens.front() == ")")
     {
       tokens.pop_front();

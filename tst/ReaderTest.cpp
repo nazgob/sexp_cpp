@@ -79,6 +79,22 @@ namespace
     EXPECT_EQ(variadicResult->Write(), "1 2 3 4 5");
   }
   
+  TEST_F(ReaderTest, ShouldReadListWithEmptyListInside)
+  {
+    std::list<std::string> nullList = Data::CreateList("(null? ())");
+    pExp checkResult = reader.Read(nullList);
+    EXPECT_EQ(checkResult->WhoAmI(), "PairExp");
+    EXPECT_EQ(checkResult->Write(), "null?");
+
+    pExp lhs = car(checkResult);
+    EXPECT_EQ(lhs->WhoAmI(), "SymbolExp");
+    EXPECT_EQ(lhs->Write(), "null?");
+
+    pExp rhs = cdr(checkResult);
+    EXPECT_EQ(rhs->WhoAmI(), "EmptyListExp");
+    EXPECT_EQ(rhs->Write(), "");
+  }
+  
   TEST_F(ReaderTest, ShouldReadQuotedSymbol)
   {
     std::list<std::string> quotedSymbolList = Data::CreateList("(quote symbol)");

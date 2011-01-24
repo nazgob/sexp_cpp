@@ -224,6 +224,25 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("6", print(exp));
   }
+
+  TEST_F(EvalSpec, NullTypePredicateFalse)
+  {
+    std::stringstream code("(null? (+ 1 2))");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "BoolExp");
+    EXPECT_EQ("#f", print(exp));
+  }
+  
+  TEST_F(EvalSpec, NullTypePredicateTrue)
+  {
+    std::stringstream code("(null? ())");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "BoolExp");
+    EXPECT_EQ("#t", print(exp));
+  }
+   
   
   //TODO: fix single quoting in complex expressions std::stringstream code("(if #f 'a 'b)");
 

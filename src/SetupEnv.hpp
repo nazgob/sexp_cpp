@@ -7,6 +7,7 @@
 #include "Define.hpp"
 #include "Set.hpp"
 #include "If.hpp"
+#include "Null.hpp"
 
 namespace sexp_cpp
 {
@@ -17,6 +18,7 @@ namespace sexp_cpp
     context.DefineFunc("define", Func::Create(Define::Create()));
     context.DefineFunc("set!",   Func::Create(Set::Create()));
     context.DefineFunc("if",     Func::Create(If::Create()));
+    context.DefineFunc("null?",  Func::Create(Null::Create()));
   }
 
 } //sexp_cpp
