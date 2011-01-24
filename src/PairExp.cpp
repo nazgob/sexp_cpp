@@ -11,10 +11,6 @@ namespace sexp_cpp
   // then consider pulling making use of global eval method
   pExp PairExp::Evaluate(Context& context) const
   {
-    if(mCar->Write() == "quote")
-    {
-      return mCdr->Car();
-    }
     if(mCar->Write() == "define")
     {
       context.Define(cadr(this)->Write(), caddr(this));

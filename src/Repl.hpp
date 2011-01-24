@@ -13,6 +13,7 @@
 #include "Utils.hpp"
 #include "Func.hpp"
 #include "Add.hpp"
+#include "Quote.hpp"
 
 namespace sexp_cpp
 {
@@ -20,7 +21,8 @@ namespace sexp_cpp
 
   void setupEnv(Context& context) // TODO: move to other file/class when it grows
   {
-    context.DefineFunc("+", Func::Create(Add::Create())); //TODO: make a factory for common procedures!
+    context.DefineFunc("+",     Func::Create(Add::Create()));
+    context.DefineFunc("quote", Func::Create(Quote::Create()));
   }
 
   pExp read(std::stringstream& ss)

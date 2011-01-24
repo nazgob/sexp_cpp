@@ -13,24 +13,31 @@ using namespace sexp_cpp;
 
 namespace
 {
-  TEST(AddFunc, JustSumItUp)
+
+  class AddTest : public ::testing::Test
+  {
+    void SetUp()
+    {
+     func = Func::Create(Add::Create());
+    }
+    protected:
+      Context context;
+      pFunc func;
+  };
+
+  TEST_F(AddTest, JustSumItUp)
   {
     pExp valuesResult = Data::CreateExp("(1 2 3 4 5)");
 
-    Context context;
-    pFunc func = Func::Create(Add::Create());
     func->SetList(valuesResult);
 
     pExp result = func->Evaluate(context);
     EXPECT_EQ(result->WhoAmI(), "ValExp");
     EXPECT_EQ(result->Write(), "15");
   }
-  
-  TEST(AddFunc, EvalToEmptyListWhenNoListProvided)
-  {
-    Context context;
-    pFunc func = Func::Create(Add::Create());
 
+  TEST_F(AddTest, EvalToEmptyListWhenNoListProvided)
+  {
     pExp result = func->Evaluate(context);
     EXPECT_EQ(result->WhoAmI(), "EmptyListExp");
     EXPECT_EQ(result->Write(), "");

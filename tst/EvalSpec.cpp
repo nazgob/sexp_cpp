@@ -5,8 +5,6 @@
 #include "../src/Context.hpp"
 #include "../src/SymbolExp.hpp"
 #include "../src/ValExp.hpp"
-#include "../src/Func.hpp"
-#include "../src/Add.hpp"
 
 #include <sstream>
 #include <string>
@@ -15,7 +13,16 @@ using namespace sexp_cpp;
 
 namespace
 {
-  TEST(EvalSpec, PositiveIntegerExp)
+  
+	class EvalSpec : public ::testing::Test
+	{
+    void SetUp()
+    {
+      setupEnv(context);
+    }
+	};
+
+  TEST_F(EvalSpec, PositiveIntegerExp)
   {
     std::stringstream code("123");
 
@@ -24,7 +31,7 @@ namespace
     EXPECT_EQ("123", print(exp));
   }
   
-  TEST(EvalSpec, NegativeIntegerExp)
+  TEST_F(EvalSpec, NegativeIntegerExp)
   {
     std::stringstream code("-456");
 
@@ -33,7 +40,7 @@ namespace
     EXPECT_EQ("-456", print(exp));
   }
   
-  TEST(EvalSpec, TrueBooleanExp)
+  TEST_F(EvalSpec, TrueBooleanExp)
   {
     std::stringstream code("#t");
 
@@ -42,7 +49,7 @@ namespace
     EXPECT_EQ("#t", print(exp));
   }
 
-  TEST(EvalSpec, FalseBooleanExp)
+  TEST_F(EvalSpec, FalseBooleanExp)
   {
     std::stringstream code("#f");
 
@@ -51,7 +58,7 @@ namespace
     EXPECT_EQ("#f", print(exp));
   }
   
-  TEST(EvalSpec, SymbolExp)
+  TEST_F(EvalSpec, SymbolExp)
   {
     std::stringstream code("foobar");
 
@@ -62,7 +69,7 @@ namespace
     EXPECT_EQ("42", print(exp));
   }
 
-  TEST(EvalSpec, EmptyListExp)
+  TEST_F(EvalSpec, EmptyListExp)
   {
     std::stringstream code("()");
 
@@ -71,7 +78,7 @@ namespace
     EXPECT_EQ("", print(exp));
   }
 
-  TEST(EvalSpec, PairExp)
+  TEST_F(EvalSpec, PairExp)
   {
     std::stringstream code("(1 2)");
 
@@ -80,7 +87,7 @@ namespace
     EXPECT_EQ("(1 2)", print(exp));
   }
   
-  TEST(EvalSpec, PairExpWithExtraSpaces)
+  TEST_F(EvalSpec, PairExpWithExtraSpaces)
   {
     std::stringstream code(" ( 1  2 ) ");
 
@@ -89,7 +96,7 @@ namespace
     EXPECT_EQ("(1 2)", print(exp));
   }
   
-  TEST(EvalSpec, NestedPairExp)
+  TEST_F(EvalSpec, NestedPairExp)
   {
     std::stringstream code("(1 2 3 4 5)");
 
@@ -98,7 +105,7 @@ namespace
     EXPECT_EQ("(1 2 3 4 5)", print(exp));
   }
 
-  TEST(EvalSpec, QuoteList)
+  TEST_F(EvalSpec, QuoteList)
   {
     std::stringstream code("(quote (1 2 3))");
 
@@ -107,7 +114,7 @@ namespace
     EXPECT_EQ("(1 2 3)", print(exp));
   }
   
-  TEST(EvalSpec, SingleQuoteList)
+  TEST_F(EvalSpec, SingleQuoteList)
   {
     std::stringstream code("'(1 2 3)");
 
@@ -116,7 +123,7 @@ namespace
     EXPECT_EQ("(1 2 3)", print(exp));
   }
 
-  TEST(EvalSpec, QuoteInteger)
+  TEST_F(EvalSpec, QuoteInteger)
   {
     std::stringstream code("(quote 1)");
 
@@ -125,7 +132,7 @@ namespace
     EXPECT_EQ("1", print(exp));
   }
 
-  TEST(EvalSpec, SingleQuoteInteger)
+  TEST_F(EvalSpec, SingleQuoteInteger)
   {
     std::stringstream code("'42");
 
@@ -134,7 +141,7 @@ namespace
     EXPECT_EQ("42", print(exp));
   }
 
-  TEST(EvalSpec, Define)
+  TEST_F(EvalSpec, Define)
   {
     std::stringstream code("(define foo 55)");
 
@@ -147,7 +154,7 @@ namespace
     EXPECT_EQ("ValExp", tmp->WhoAmI());
   }
   
-  TEST(EvalSpec, Set)
+  TEST_F(EvalSpec, Set)
   {
     std::stringstream code("(set! bar 77)");
 
@@ -162,7 +169,7 @@ namespace
     EXPECT_EQ("ValExp", tmp->WhoAmI());
   }
 
-  TEST(EvalSpec, IfTrue)
+  TEST_F(EvalSpec, IfTrue)
   {
     std::stringstream code("(if #t 1 2)");
 
@@ -171,7 +178,7 @@ namespace
     EXPECT_EQ("1", print(exp));
   }
   
-  TEST(EvalSpec, IfFalse)
+  TEST_F(EvalSpec, IfFalse)
   {
     std::stringstream code("(if #f 1 2)");
 
@@ -180,7 +187,7 @@ namespace
     EXPECT_EQ("2", print(exp));
   }
   
-  TEST(EvalSpec, IfTrueWithQuote)
+  TEST_F(EvalSpec, IfTrueWithQuote)
   {
     std::stringstream code("(if #t (quote 1) 42))");
 
@@ -190,7 +197,7 @@ namespace
     EXPECT_EQ("1", print(exp));
   }
   
-  TEST(EvalSpec, IfFalseWithQuote)
+  TEST_F(EvalSpec, IfFalseWithQuote)
   {
     std::stringstream code("(if #f 1 (quote 42))");
 
@@ -199,7 +206,7 @@ namespace
     EXPECT_EQ("42", print(exp));
   }
   
-  TEST(EvalSpec, IfWithDoubleQuotes)
+  TEST_F(EvalSpec, IfWithDoubleQuotes)
   {
     std::stringstream code("(if #f (quote 1) (quote 2))");
 
@@ -208,10 +215,9 @@ namespace
     EXPECT_EQ("2", print(exp));
   }
     
-  TEST(EvalSpec, Addition)
+  TEST_F(EvalSpec, Addition)
   {
     std::stringstream code("(+ 1 2 3)");
-    context.DefineFunc("+", Func::Create(Add::Create())); //TODO: make a factory for common procedures!
 
     pExp exp = eval(read(code));
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
@@ -220,10 +226,9 @@ namespace
   
   //TODO: fix single quoting in complex expressions std::stringstream code("(if #f 'a 'b)");
 
-  //TEST(EvalSpec, FunctionPrint)
+  //TEST_F(EvalSpec, FunctionPrint)
   //{
     //std::stringstream code("+");
-    //context.DefineFunc("+", AddFunc::Create());
 
     //pExp exp = eval(read(code));
     //EXPECT_EQ(exp->WhoAmI(), "AddFunc");
