@@ -1,8 +1,9 @@
 #include <gtest/gtest.h>
 
 #include "../src/Repl.hpp"
-#include "../src/Exp.hpp"
+#include "../src/SetupEnv.hpp"
 #include "../src/Context.hpp"
+#include "../src/Exp.hpp"
 #include "../src/SymbolExp.hpp"
 #include "../src/ValExp.hpp"
 
@@ -18,7 +19,7 @@ namespace
 	{
     void SetUp()
     {
-      setupEnv(context);
+      SetupEnv(context);
     }
 	};
 

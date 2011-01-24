@@ -1,4 +1,5 @@
 #include "Repl.hpp"
+#include "SetupEnv.hpp"
 
 #include <sstream>
 #include <string>
@@ -8,7 +9,7 @@ using namespace sexp_cpp;
 
 int main()
 {
-  setupEnv(context);
+  SetupEnv(context);
 
   // (loop (print (eval (read))))
   while(1)

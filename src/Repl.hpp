@@ -11,26 +11,10 @@
 #include "Tokenizer.hpp"
 #include "Reader.hpp"
 #include "Utils.hpp"
-#include "Func.hpp"
-
-#include "Add.hpp"
-#include "Quote.hpp"
-#include "Define.hpp"
-#include "Set.hpp"
-#include "If.hpp"
 
 namespace sexp_cpp
 {
-  Context context; // TODO: consider injecting context to repl loop
-
-  void setupEnv(Context& context) // TODO: move to other file/class when it grows
-  {
-    context.DefineFunc("+",      Func::Create(Add::Create()));
-    context.DefineFunc("quote",  Func::Create(Quote::Create()));
-    context.DefineFunc("define", Func::Create(Define::Create()));
-    context.DefineFunc("set!",   Func::Create(Set::Create()));
-    context.DefineFunc("if",     Func::Create(If::Create()));
-  }
+  Context context;
 
   pExp read(std::stringstream& ss)
   {
