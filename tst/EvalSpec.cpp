@@ -14,14 +14,14 @@ using namespace sexp_cpp;
 
 namespace
 {
-  
-	class EvalSpec : public ::testing::Test
-	{
+
+  class EvalSpec : public ::testing::Test
+  {
     void SetUp()
     {
       SetupEnv(context);
     }
-	};
+  };
 
   TEST_F(EvalSpec, PositiveIntegerExp)
   {
@@ -31,7 +31,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("123", print(exp));
   }
-  
+
   TEST_F(EvalSpec, NegativeIntegerExp)
   {
     std::stringstream code("-456");
@@ -40,7 +40,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("-456", print(exp));
   }
-  
+
   TEST_F(EvalSpec, TrueBooleanExp)
   {
     std::stringstream code("#t");
@@ -58,7 +58,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "BoolExp");
     EXPECT_EQ("#f", print(exp));
   }
-  
+
   TEST_F(EvalSpec, SymbolExp)
   {
     std::stringstream code("foobar");
@@ -87,7 +87,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "PairExp");
     EXPECT_EQ("(1 2)", print(exp));
   }
-  
+
   TEST_F(EvalSpec, PairExpWithExtraSpaces)
   {
     std::stringstream code(" ( 1  2 ) ");
@@ -96,7 +96,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "PairExp");
     EXPECT_EQ("(1 2)", print(exp));
   }
-  
+
   TEST_F(EvalSpec, NestedPairExp)
   {
     std::stringstream code("(1 2 3 4 5)");
@@ -114,7 +114,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "PairExp");
     EXPECT_EQ("(1 2 3)", print(exp));
   }
-  
+
   TEST_F(EvalSpec, SingleQuoteList)
   {
     std::stringstream code("'(1 2 3)");
@@ -154,7 +154,7 @@ namespace
     EXPECT_EQ("55", tmp->Write());
     EXPECT_EQ("ValExp", tmp->WhoAmI());
   }
-  
+
   TEST_F(EvalSpec, Set)
   {
     std::stringstream code("(set! bar 77)");
@@ -178,7 +178,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("1", print(exp));
   }
-  
+
   TEST_F(EvalSpec, IfFalse)
   {
     std::stringstream code("(if #f 1 2)");
@@ -187,7 +187,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("2", print(exp));
   }
-  
+
   TEST_F(EvalSpec, IfTrueWithQuote)
   {
     std::stringstream code("(if #t (quote 1) 42))");
@@ -197,7 +197,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("1", print(exp));
   }
-  
+
   TEST_F(EvalSpec, IfFalseWithQuote)
   {
     std::stringstream code("(if #f 1 (quote 42))");
@@ -206,7 +206,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("42", print(exp));
   }
-  
+
   TEST_F(EvalSpec, IfWithDoubleQuotes)
   {
     std::stringstream code("(if #f (quote 1) (quote 2))");
@@ -215,7 +215,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "ValExp");
     EXPECT_EQ("2", print(exp));
   }
-    
+
   TEST_F(EvalSpec, Addition)
   {
     std::stringstream code("(+ 1 2 3)");
@@ -233,7 +233,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "BoolExp");
     EXPECT_EQ("#f", print(exp));
   }
-  
+
   TEST_F(EvalSpec, NullTypePredicateTrue)
   {
     std::stringstream code("(null? ())");
@@ -242,7 +242,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "BoolExp");
     EXPECT_EQ("#t", print(exp));
   }
-  
+
   TEST_F(EvalSpec, BooleanTypePredicateTrue)
   {
     std::stringstream code("(boolean? #f)");
@@ -251,7 +251,7 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "BoolExp");
     EXPECT_EQ("#t", print(exp));
   }
-  
+
   TEST_F(EvalSpec, BooleanTypePredicateFalse)
   {
     std::stringstream code("(boolean? (+ 1 2))");
@@ -260,17 +260,17 @@ namespace
     EXPECT_EQ(exp->WhoAmI(), "BoolExp");
     EXPECT_EQ("#f", print(exp));
   }
-   
-  
+
+
   //TODO: fix single quoting in complex expressions std::stringstream code("(if #f 'a 'b)");
 
   //TEST_F(EvalSpec, FunctionPrint)
   //{
-    //std::stringstream code("+");
+  //std::stringstream code("+");
 
-    //pExp exp = eval(read(code));
-    //EXPECT_EQ(exp->WhoAmI(), "AddFunc");
-    //EXPECT_EQ("#<procedure>", print(exp));
+  //pExp exp = eval(read(code));
+  //EXPECT_EQ(exp->WhoAmI(), "AddFunc");
+  //EXPECT_EQ("#<procedure>", print(exp));
   //}
 
 }

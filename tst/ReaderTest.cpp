@@ -12,12 +12,12 @@ using namespace sexp_cpp;
 
 namespace
 {
-  
-	class ReaderTest : public ::testing::Test
-	{
-		protected:
+
+  class ReaderTest : public ::testing::Test
+  {
+    protected:
       Reader reader;
-	};
+  };
 
   TEST_F(ReaderTest, ShouldReadInteger)
   {
@@ -44,7 +44,7 @@ namespace
     EXPECT_EQ(falseResult->WhoAmI(), "BoolExp");
     EXPECT_EQ(falseResult->Write(), "#f");
   }
-  
+
   TEST_F(ReaderTest, ShouldReadSymbols) // TODO: check for other allowed symbol formats
   {
     std::list<std::string> symbolList = Data::CreateList("foobar");
@@ -78,7 +78,7 @@ namespace
     EXPECT_EQ(variadicResult->WhoAmI(), "PairExp");
     EXPECT_EQ(variadicResult->Write(), "1 2 3 4 5");
   }
-  
+
   TEST_F(ReaderTest, ShouldReadListWithEmptyListInside)
   {
     std::list<std::string> nullList = Data::CreateList("(null? ())");
@@ -94,7 +94,7 @@ namespace
     EXPECT_EQ(rhs->WhoAmI(), "EmptyListExp");
     EXPECT_EQ(rhs->Write(), "");
   }
-  
+
   TEST_F(ReaderTest, ShouldReadQuotedSymbol)
   {
     std::list<std::string> quotedSymbolList = Data::CreateList("(quote symbol)");
@@ -102,7 +102,7 @@ namespace
     EXPECT_EQ(result->WhoAmI(), "PairExp");
     EXPECT_EQ(result->Write(), "quote symbol");
   }
-  
+
   TEST_F(ReaderTest, ShouldReadQuotedList)
   {
     std::list<std::string> quotedList = Data::CreateList("(quote (1 2 3))");
@@ -110,7 +110,7 @@ namespace
     EXPECT_EQ(result->WhoAmI(), "PairExp");
     EXPECT_EQ(result->Write(), "quote 1 2 3");
   }
-  
+
   TEST_F(ReaderTest, ShouldReadSingleQuotedInteger)
   {
     std::list<std::string> singleQuotedIntList = Data::CreateList("'42");
@@ -118,7 +118,7 @@ namespace
     EXPECT_EQ(result->WhoAmI(), "PairExp");
     EXPECT_EQ(result->Write(), "quote 42");
   }
-  
+
   TEST_F(ReaderTest, ShouldReadVariadicListWithSingleQuotes)
   {
     std::list<std::string> singleQuotedIntList = Data::CreateList("(if #f 'a 'b)");
