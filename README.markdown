@@ -3,7 +3,7 @@ Scheme interpreter in c++
 * this a simple RSR5 Scheme implementation done in c++  
 * project is called sexp_cpp (it morphed out of a s-expressions interpreter)  
 * this is **work in progress** project! Scheme implementation is not complete yet!
-* its developed and tested on mac so it might not work strait out of the box on
+* it's developed and tested on mac so it might not work strait out of the box on
   Linux (but it will in a future)
 
 Requirements:
