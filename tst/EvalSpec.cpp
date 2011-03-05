@@ -225,6 +225,17 @@ namespace
     EXPECT_EQ("6", print(exp));
   }
 
+  TEST_F(EvalSpec, SymbolsAddition)
+  {
+    std::stringstream code("(+ foo bar)");
+    context.Define(SymbolExp::Create("foo"), ValExp::Create(4));
+    context.Define(SymbolExp::Create("bar"), ValExp::Create(3));
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
+    EXPECT_EQ("7", print(exp));
+  }
+
   TEST_F(EvalSpec, NullTypePredicateFalse)
   {
     std::stringstream code("(null? (+ 1 2))");

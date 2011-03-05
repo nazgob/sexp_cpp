@@ -19,7 +19,7 @@ namespace sexp_cpp
       virtual ~Add() {}
       static pProc Create() {return pProc(new Add());}
 
-      virtual pExp Apply(pExp list, Context&) const
+      virtual pExp Apply(pExp list, Context& context) const
       {
         int result = 0;
         if(list->WhoAmI() == "EmptyListExp")
@@ -28,7 +28,7 @@ namespace sexp_cpp
         }
         while(list->WhoAmI() != "EmptyListExp")
         {
-          result += boost::lexical_cast<int>(car(list)->Write());
+          result += boost::lexical_cast<int>(car(list)->Evaluate(context)->Write());
           list = cdr(list);
         }
         return ValExp::Create(result);

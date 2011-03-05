@@ -77,6 +77,12 @@ Live sexp_cpp session preview:
     #t
     sexp> (boolean? #f)
     #t
+    sexp> (define bazz 5)
+    ok
+    sexp> (define bar 7)
+    ok
+    sexp> (+ bazz bar)
+    12
 
 
 Problems:
