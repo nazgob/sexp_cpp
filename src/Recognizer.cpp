@@ -41,7 +41,8 @@ namespace sexp_cpp
 
   bool Recognizer::IsEmptyList(const std::list<std::string>& tokens)
   {
-    if(tokens.size() == 2 && tokens.front() == "(" && tokens.back() == ")") // 2 brackets
+    std::list<std::string>::const_iterator it = tokens.begin();
+    if(*it == "(" && *(++it) == ")") // 2 brackets + 2 args
     {
       return true;
     }

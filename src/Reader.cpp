@@ -49,6 +49,7 @@ namespace sexp_cpp
       assert(tokens.front() == "(");
       assert(tokens.back() == ")");
       tokens.pop_front();
+      tokens.pop_front();
 
       return EmptyListExp::Create();
     }
@@ -80,16 +81,14 @@ namespace sexp_cpp
 
   pExp Reader::ReadList(std::list<std::string>& tokens)
   {
-    if(tokens.front() == "(")
+    if(Recognizer::IsEmptyList(tokens))
     {
-      std::list<std::string>::iterator it = tokens.begin();
-      assert(*it == "("); ++it;
-      if(*it == ")")
-      {
-        tokens.pop_front();
-        tokens.pop_front();
-        return EmptyListExp::Create();
-      }
+      assert(tokens.front() == "(");
+      assert(tokens.back() == ")");
+      tokens.pop_front();
+      tokens.pop_front();
+
+      return EmptyListExp::Create();
     }
     if(tokens.front() == ")")
     {
