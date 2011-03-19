@@ -50,6 +50,21 @@ namespace sexp_cpp
     return false;
   }
 
+  bool Recognizer::IsLambda(const std::list<std::string>& tokens) //TODO: look for lambda in 2 positions only
+  {
+    if(IsList(tokens))
+    {
+      for(std::list<std::string>::const_iterator it = tokens.begin(); it != tokens.end(); ++it)
+      {
+        if(*it == "lambda")
+        {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   bool Recognizer::IsList(const std::list<std::string>& tokens)
   {
     if(tokens.size() >= 4 && tokens.front() == "(")

@@ -35,8 +35,11 @@ namespace
 
   TEST(RecognizerTest, IsSymbol)
   {
-    std::string symbol = "foobar";
-    EXPECT_TRUE(Recognizer::IsSymbol(symbol));
+    std::string stringSymbol = "foobar";
+    EXPECT_TRUE(Recognizer::IsSymbol(stringSymbol));
+
+    std::string funcSymbol = "+";
+    EXPECT_TRUE(Recognizer::IsSymbol(funcSymbol));
   }
 
   TEST(RecognizerTest, IsEmptyList)
@@ -81,6 +84,5 @@ namespace
     std::string quotedList = "(quote (1 2 3))";
     EXPECT_TRUE(Recognizer::IsQuotedList(Data::CreateList(quotedList)));
   }
-
 }
 

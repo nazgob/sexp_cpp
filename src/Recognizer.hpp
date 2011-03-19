@@ -18,6 +18,8 @@ namespace sexp_cpp
 
       static bool IsEmptyList(const std::list<std::string>& tokens);
 
+      static bool IsLambda(const std::list<std::string>& tokens);
+
       static bool IsList(const std::list<std::string>& tokens);
 
       static bool IsSingleQuoted(const std::list<std::string>& tokens);
