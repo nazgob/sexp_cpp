@@ -133,6 +133,137 @@ namespace
     pExp additionResult = reader.Read(additionList);
     EXPECT_EQ(additionResult->WhoAmI(), "PairExp");
     EXPECT_EQ(additionResult->Write(), "+ 1 2");
+
+    pExp lhs = car(additionResult);
+    EXPECT_EQ(lhs->WhoAmI(), "SymbolExp");
+    EXPECT_EQ(lhs->Write(), "+");
+
+    pExp rhs = cdr(additionResult);
+    EXPECT_EQ(rhs->WhoAmI(), "PairExp");
+    EXPECT_EQ(rhs->Write(), "1 2");
+  }
+
+  TEST_F(ReaderTest, ShouldReadLambda)
+  {
+    // ( ( lambda ( xx ) ( + xx 2 ) ) 3 )
+    // ( lambda ( xx ) ( + xx 2 ) ) 3 )
+    // ( lambda ( xx ) ( + xx 2 ) ) 3 )
+    // lambda ( xx ) ( + xx 2 ) ) 3 )
+    // ( xx ) ( + xx 2 ) ) 3 )
+    // xx ) ( + xx 2 ) ) 3 )
+    // ) ( + xx 2 ) ) 3 )
+    // ( + xx 2 ) ) 3 )
+    // + xx 2 ) ) 3 )
+    // xx 2 ) ) 3 )
+    // 2 ) ) 3 )
+    // ) ) 3 )
+    // ) 3 )
+    // 3 )
+    // )
+
+    std::list<std::string> lambdaList = Data::CreateList("((lambda (xx) (+ xx 2)) 3)");
+    pExp result = reader.Read(lambdaList);
+    EXPECT_EQ(result->WhoAmI(), "PairExp");
+    EXPECT_EQ(result->Write(), "lambda xx + xx 2 3");
+
+    //-------------------------------
+    pExp lambda = car(result);
+    EXPECT_EQ(lambda->WhoAmI(), "PairExp");
+    EXPECT_EQ(lambda->Write(), "lambda xx + xx 2");
+
+    pExp arguments = cdr(result);
+    EXPECT_EQ(arguments->WhoAmI(), "PairExp");
+    EXPECT_EQ(arguments->Write(), "3");
+
+    //-------------------------------
+    pExp lhs = car(arguments);
+    EXPECT_EQ(lhs->WhoAmI(), "ValExp");
+    EXPECT_EQ(lhs->Write(), "3");
+
+    pExp rhs = cdr(arguments);
+    EXPECT_EQ(rhs->WhoAmI(), "EmptyListExp");
+    EXPECT_EQ(rhs->Write(), "");
+
+    //-------------------------------
+    pExp lhs1 = car(lambda);
+    EXPECT_EQ(lhs1->WhoAmI(), "SymbolExp");
+    EXPECT_EQ(lhs1->Write(), "lambda");
+
+    pExp rhs1 = cdr(lambda);
+    EXPECT_EQ(rhs1->WhoAmI(), "PairExp");
+    EXPECT_EQ(rhs1->Write(), "xx + xx 2");
+
+    //-------------------------------
+    pExp lhs2 = car(rhs1);
+    EXPECT_EQ(lhs2->WhoAmI(), "PairExp");
+    EXPECT_EQ(lhs2->Write(), "xx");
+
+    pExp rhs2 = cdr(rhs1);
+    EXPECT_EQ(rhs2->WhoAmI(), "PairExp");
+    EXPECT_EQ(rhs2->Write(), "+ xx 2");
+  }
+
+  TEST_F(ReaderTest, ShouldReadLambdaInnerPair)
+  {
+    // ( ( xx ) ( + xx 2 ) )
+    // ( xx ) ( + xx 2 ) )
+    // () ( + xx 2 ) )
+    // ( ( + xx 2 ) )
+    // ( + xx 2 ) )
+    // ( xx 2 ) )
+    // ( 2 ) )
+    // () )
+    // ()
+
+    std::list<std::string> lambdaList = Data::CreateList("((xx) (+ xx 2))");
+    pExp result = reader.Read(lambdaList);
+    EXPECT_EQ(result->WhoAmI(), "PairExp");
+    EXPECT_EQ(result->Write(), "xx + xx 2");
+
+    //-------------------------------
+    pExp parameters = car(result);
+    EXPECT_EQ(parameters->WhoAmI(), "PairExp");
+    EXPECT_EQ(parameters->Write(), "xx");
+
+    pExp body = cdr(result);
+    EXPECT_EQ(body->WhoAmI(), "PairExp");
+    EXPECT_EQ(body->Write(), "+ xx 2");
+
+    //-------------------------------
+    pExp lhs = car(parameters);
+    EXPECT_EQ(lhs->WhoAmI(), "SymbolExp");
+    EXPECT_EQ(lhs->Write(), "xx");
+
+    pExp rhs = cdr(parameters);
+    EXPECT_EQ(rhs->WhoAmI(), "EmptyListExp");
+    EXPECT_EQ(rhs->Write(), "");
+
+    //-------------------------------
+    pExp lhs1 = car(body);
+    EXPECT_EQ(lhs1->WhoAmI(), "PairExp");
+    EXPECT_EQ(lhs1->Write(), "+ xx 2");
+
+    pExp rhs1 = cdr(body);
+    EXPECT_EQ(rhs1->WhoAmI(), "EmptyListExp");
+    EXPECT_EQ(rhs1->Write(), "");
+
+    //-------------------------------
+    pExp lhs2 = car(lhs1);
+    EXPECT_EQ(lhs2->WhoAmI(), "SymbolExp");
+    EXPECT_EQ(lhs2->Write(), "+");
+
+    pExp rhs2 = cdr(lhs1);
+    EXPECT_EQ(rhs2->WhoAmI(), "PairExp");
+    EXPECT_EQ(rhs2->Write(), "xx 2");
+
+    //-------------------------------
+    pExp lhs3 = car(rhs2);
+    EXPECT_EQ(lhs3->WhoAmI(), "SymbolExp");
+    EXPECT_EQ(lhs3->Write(), "xx");
+
+    pExp rhs3 = cdr(rhs2);
+    EXPECT_EQ(rhs3->WhoAmI(), "PairExp");
+    EXPECT_EQ(rhs3->Write(), "2");
   }
 }
 
