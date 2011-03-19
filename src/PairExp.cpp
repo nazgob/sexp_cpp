@@ -1,7 +1,6 @@
 #include "PairExp.hpp"
 #include "Context.hpp"
 #include "SymbolExp.hpp"
-#include "BoolExp.hpp"
 #include "Func.hpp"
 
 namespace sexp_cpp
@@ -15,6 +14,12 @@ namespace sexp_cpp
       function->SetList(mCdr);
       return function->Evaluate(context);
     }
+    if(mCar->WhoAmI() == "PairExp" && car(mCar)->Write() == "lambda")
+    {
+      context.Define(SymbolExp::Create(car(cdr(mCar))->Write()), ValExp::Create(mCdr->Write()));
+      return caddr(mCar)->Evaluate(context);
+    }
+
     return Create(mCar, mCdr);
   }
 

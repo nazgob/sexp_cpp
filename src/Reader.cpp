@@ -92,8 +92,21 @@ namespace sexp_cpp
     }
     if(tokens.front() == ")")
     {
-      tokens.pop_front();
-      return EmptyListExp::Create();
+      bool end = true;
+      for(std::list<std::string>::iterator it = tokens.begin(); it != tokens.end(); ++it)
+      {
+        if(*it != ")")
+        {
+          end = false;
+          tokens.pop_front();
+          return EmptyListExp::Create();
+        }
+      }
+      if(end == true)
+      {
+        tokens.pop_front();
+        return EmptyListExp::Create();
+      }
     }
 
     pExp lhs = Read(tokens);

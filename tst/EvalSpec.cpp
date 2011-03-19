@@ -272,6 +272,28 @@ namespace
     EXPECT_EQ("#f", print(exp));
   }
 
+  TEST(FuncTest, EvaluatingSavedExpressionWithSymbolDefinedLater)
+  {
+    std::stringstream code("(+ q 2)");
+    pExp exp = read(code);
+    context.Define(SymbolExp::Create("q"), ValExp::Create(13));
+    exp = eval(exp);
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
+    EXPECT_EQ(exp->Write(), "15");
+  }
+
+  TEST_F(EvalSpec, LambdaTheUltimate)
+  {
+    std::stringstream code("((lambda (qq) (+ qq 2)) 5)");
+
+    pExp exp = eval(read(code));
+    EXPECT_EQ(exp->WhoAmI(), "ValExp");
+    EXPECT_EQ("7", print(exp));
+
+    pExp lol = context.Lookup("qq");
+    EXPECT_EQ(lol->WhoAmI(), "ValExp");
+    EXPECT_EQ("5", print(lol));
+  }
 
   //TODO: fix single quoting in complex expressions std::stringstream code("(if #f 'a 'b)");
 

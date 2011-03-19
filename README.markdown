@@ -83,6 +83,8 @@ Live sexp_cpp session preview:
     ok
     sexp> (+ bazz bar)
     12
+    sexp> ((lambda (x) (+ x 2)) 42)
+    44
 
 
 Problems:
