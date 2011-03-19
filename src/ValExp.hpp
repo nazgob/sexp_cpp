@@ -18,7 +18,12 @@ namespace sexp_cpp
       ValExp(int value) : mVal(value) {}
       virtual ~ValExp() {}
       
-      static pExp Create(int value) { return pExp(new ValExp(value));}
+      static pExp Create(int val) { return pExp(new ValExp(val));}
+
+      static pExp Create(const std::string& val)
+      {
+        return pExp(new ValExp(boost::lexical_cast<int>(val)));
+      }
 
       virtual pExp Evaluate(Context&) const {return Create(mVal);} 
 
