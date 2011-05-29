@@ -1,5 +1,4 @@
 require 'rake/clean'
-require 'rake/classic_namespace'
 
 EXEC = "sexp" 
 TEST_EXEC = "test_sexp"
@@ -62,7 +61,7 @@ end
 directory OBJDIR
 
 rule '.o' => lambda{ |objfile| find_source(objfile) } do |t|
-  Task[OBJDIR].invoke
+  Rake::Task[OBJDIR].invoke
   sh "#{CC} #{W_FLAGS} #{I_FLAGS} -c -o #{t.name} #{t.source}" 
 end
 
